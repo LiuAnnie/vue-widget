@@ -1,15 +1,18 @@
 <template>
   <div class="image-enum-question">
-    <div class="image-grid">
+    <div class="options-grid">
       <div
         v-for="option in question.options"
         :key="option.value"
-        class="image-option"
-        :class="{ selected: selectedOption === option.value }"
+        class="option-card"
+        :class="{ 
+          selected: modelValue === option.value,
+          'dark-mode': isDarkMode
+        }"
         @click="selectOption(option.value)"
       >
-        <img :src="option.imageUrl" :alt="option.label" />
-        <span class="option-label">{{ option.label }}</span>
+        <img :src="option.imageUrl" :alt="option.label" class="option-image" />
+        <div class="option-label">{{ option.label }}</div>
       </div>
     </div>
   </div>
@@ -25,22 +28,16 @@ export default {
     },
     modelValue: {
       type: String,
-      default: ''
-    }
-  },
-  computed: {
-    selectedOption: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        this.$emit('update:modelValue', value)
-      }
+      default: null
+    },
+    isDarkMode: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     selectOption(value) {
-      this.selectedOption = value
+      this.$emit('update:modelValue', value)
     }
   }
 }
@@ -51,51 +48,85 @@ export default {
   margin-top: 10px;
 }
 
-.image-grid {
+.options-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  padding: 10px 0;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
 }
 
-.image-option {
+.option-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 10px;
-  border: 2px solid transparent;
+  padding: 15px;
+  border: 1px solid var(--secondary-color, #89AAE6);
   border-radius: 8px;
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: white;
 }
 
-.image-option:hover {
-  border-color: var(--secondary-color);
-  background-color: rgba(0, 0, 0, 0.05);
+.option-card.dark-mode {
+  background-color: #2a2a2a;
+  border-color: #89AAE6;
 }
 
-.image-option.selected {
-  border-color: var(--primary-color);
-  background-color: rgba(76, 175, 80, 0.1);
+.option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.image-option img {
+.option-card.dark-mode:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.option-card.selected {
+  border-color: var(--primary-color, #470FF4);
+  background-color: var(--background-color, #EBFFED);
+  border-width: 2px;
+  box-shadow: 0 0 8px rgba(71, 15, 244, 0.4);
+  transform: translateY(-2px);
+}
+
+.option-card.dark-mode.selected {
+  border-color: #470FF4;
+  background-color: #333;
+  border-width: 2px;
+  box-shadow: 0 0 12px rgba(71, 15, 244, 0.6);
+  transform: translateY(-2px);
+}
+
+.option-image {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 4px;
+  height: auto;
+  max-height: 120px;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
 .option-label {
-  font-size: var(--body-size);
+  font-size: var(--body-size, 16px);
+  color: var(--text-color, #2E3532);
   text-align: center;
+  font-weight: 500;
 }
 
-@media (max-width: 600px) {
-  .image-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
+.option-card.dark-mode .option-label {
+  color: #f5f5f5;
+}
+
+@media (max-width: 480px) {
+  .options-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  .option-card {
+    padding: 10px;
+  }
+  
+  .option-image {
+    max-height: 100px;
   }
 }
 </style> 

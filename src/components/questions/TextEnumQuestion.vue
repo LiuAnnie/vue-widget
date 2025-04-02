@@ -1,12 +1,21 @@
 <template>
   <div class="text-enum-question">
     <div class="options-container">
-      <label v-for="option in question.options" :key="option" class="option-label">
+      <label
+        v-for="option in question.options"
+        :key="option"
+        class="option-label"
+        :class="{ 
+          selected: modelValue === option,
+          'dark-mode': isDarkMode
+        }"
+      >
         <input
           type="radio"
-          :value="option"
-          v-model="selectedOption"
           :name="'question-' + question.id"
+          :value="option"
+          v-model="localValue"
+          class="option-input"
         />
         <span class="option-text">{{ option }}</span>
       </label>
@@ -23,12 +32,16 @@ export default {
       required: true
     },
     modelValue: {
-      type: String,
-      default: ''
+      type: [String, Number],
+      default: null
+    },
+    isDarkMode: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
-    selectedOption: {
+    localValue: {
       get() {
         return this.modelValue
       },
@@ -54,22 +67,60 @@ export default {
 .option-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 8px;
+  padding: 10px 15px;
+  border: 1px solid var(--secondary-color, #89AAE6);
   border-radius: 4px;
-  transition: background-color 0.2s;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.option-label.dark-mode {
+  background-color: #2a2a2a;
+  border-color: #89AAE6;
 }
 
 .option-label:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--background-color, #EBFFED);
+}
+
+.option-label.dark-mode:hover {
+  background-color: #333;
+}
+
+.option-label.selected {
+  background-color: var(--background-color, #EBFFED);
+  border-color: var(--primary-color, #470FF4);
+  border-width: 2px;
+  box-shadow: 0 0 8px rgba(71, 15, 244, 0.4);
+  transform: translateY(-1px);
+}
+
+.option-label.dark-mode.selected {
+  background-color: #333;
+  border-color: #470FF4;
+  border-width: 2px;
+  box-shadow: 0 0 12px rgba(71, 15, 244, 0.6);
+  transform: translateY(-1px);
+}
+
+.option-input {
+  margin-right: 10px;
+  accent-color: var(--primary-color, #470FF4);
 }
 
 .option-text {
-  font-size: var(--body-size);
+  font-size: var(--body-size, 16px);
+  color: var(--text-color, #2E3532);
 }
 
-input[type="radio"] {
-  margin: 0;
+.option-label.dark-mode .option-text {
+  color: #f5f5f5;
+}
+
+@media (max-width: 480px) {
+  .option-label {
+    padding: 8px 12px;
+  }
 }
 </style> 
