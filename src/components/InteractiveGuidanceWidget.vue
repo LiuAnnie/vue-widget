@@ -147,13 +147,13 @@ export default {
       return {
         '--primary-color': this.config.colors.primary,
         '--secondary-color': this.config.colors.secondary,
-        '--background-color': this.config.colors.background,
         '--text-color': this.config.colors.text,
         '--accent-color': this.config.colors.accent,
-        '--font-family': this.config.fonts.primary,
+        '--font-primary': this.config.fonts.primary,
         '--heading-size': this.config.fonts.sizes.heading,
         '--subheading-size': this.config.fonts.sizes.subheading,
-        '--body-size': this.config.fonts.sizes.body
+        '--body-size': this.config.fonts.sizes.body,
+        '--background-color': this.isDarkMode ? '#1a1a1a' : this.config.colors.background
       }
     },
     canSubmitAnswers() {
@@ -161,23 +161,25 @@ export default {
     }
   },
   mounted() {
-    // Check for system dark mode preference
-    this.checkDarkMode()
+    // Set initial dark mode based on system preference
+    this.isDarkMode = this.checkSystemDarkMode()
     
-    // Listen for changes in system appearance
+    // Listen for system appearance changes
     if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.checkDarkMode)
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        this.isDarkMode = e.matches
+      })
     }
   },
   beforeUnmount() {
     // Clean up event listener
     if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', this.checkDarkMode)
+      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', this.checkSystemDarkMode)
     }
   },
   methods: {
-    checkDarkMode() {
-      this.isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+    checkSystemDarkMode() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
     },
     async submitProblem() {
       this.problemDescription = this.userProblem
@@ -276,6 +278,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   text-align: left;
+  color: var(--text-color);
 }
 
 .dark-mode .guidance-widget {
@@ -309,6 +312,10 @@ export default {
   text-align: left;
 }
 
+.dark-mode .widget-header h2 {
+  color: #f5f5f5;
+}
+
 .widget-logo {
   max-width: 120px;
   height: auto;
@@ -323,6 +330,7 @@ export default {
 .widget-content {
   width: 100%;
   text-align: left;
+  color: inherit;
 }
 
 .question-container {
@@ -334,6 +342,13 @@ export default {
   background-color: white;
   box-sizing: border-box;
   text-align: left;
+  color: var(--text-color);
+}
+
+.dark-mode .question-container {
+  background-color: #2a2a2a;
+  border-color: #89AAE6;
+  color: #f5f5f5;
 }
 
 .question-container h3 {
@@ -342,6 +357,10 @@ export default {
   margin-bottom: 1rem;
   color: var(--accent-color);
   text-align: left;
+}
+
+.dark-mode .question-container h3 {
+  color: #f5f5f5;
 }
 
 .answered-questions {
@@ -353,6 +372,13 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   text-align: left;
+  color: var(--text-color);
+}
+
+.dark-mode .answered-questions {
+  background-color: #2a2a2a;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #f5f5f5;
 }
 
 .answered-questions h4 {
@@ -362,15 +388,33 @@ export default {
   text-align: left;
 }
 
+.dark-mode .answered-questions h4 {
+  color: #f5f5f5;
+}
+
 .answered-question {
   width: 100%;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
   background-color: var(--background-color);
   border: 1px solid var(--secondary-color);
   border-radius: 4px;
   box-sizing: border-box;
   text-align: left;
+  color: var(--text-color);
+}
+
+.dark-mode .answered-question {
+  background-color: #333;
+  border-color: #89AAE6;
+  color: #f5f5f5;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .question-header h5 {
@@ -378,6 +422,22 @@ export default {
   margin: 0;
   color: var(--text-color);
   text-align: left;
+  flex: 1;
+}
+
+.dark-mode .question-header h5 {
+  color: #f5f5f5;
+}
+
+.edit-icon {
+  color: var(--primary-color);
+  cursor: pointer;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
+.dark-mode .edit-icon {
+  color: #89AAE6;
 }
 
 .answer-display {
@@ -389,6 +449,11 @@ export default {
   text-align: left;
 }
 
+.dark-mode .answer-display {
+  color: #f5f5f5;
+  background-color: rgba(71, 15, 244, 0.1);
+}
+
 .solution-section {
   width: 100%;
   margin-top: 1.5rem;
@@ -398,6 +463,13 @@ export default {
   background-color: white;
   box-sizing: border-box;
   text-align: left;
+  color: var(--text-color);
+}
+
+.dark-mode .solution-section {
+  background-color: #2a2a2a;
+  border-color: #89AAE6;
+  color: #f5f5f5;
 }
 
 .solution-section h3 {
@@ -407,11 +479,19 @@ export default {
   text-align: left;
 }
 
+.dark-mode .solution-section h3 {
+  color: #f5f5f5;
+}
+
 .solution-section p {
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   line-height: 1.6;
   white-space: pre-line;
   text-align: left;
+}
+
+.dark-mode .solution-section p {
+  color: #f5f5f5;
 }
 
 .feedback-section {
@@ -424,6 +504,10 @@ export default {
   margin-bottom: 1rem;
   color: var(--accent-color);
   text-align: left;
+}
+
+.dark-mode .feedback-section h4 {
+  color: #f5f5f5;
 }
 
 .feedback-buttons {
@@ -447,6 +531,14 @@ button {
   text-align: center;
 }
 
+.dark-mode button {
+  background-color: #89AAE6;
+}
+
+.dark-mode button:hover {
+  background-color: #470FF4;
+}
+
 textarea {
   width: 100%;
   padding: 1rem;
@@ -458,6 +550,18 @@ textarea {
   min-height: 100px;
   box-sizing: border-box;
   text-align: left;
+  color: var(--text-color);
+  background-color: white;
+}
+
+.dark-mode textarea {
+  background-color: #333;
+  border-color: #89AAE6;
+  color: #f5f5f5;
+}
+
+.dark-mode textarea::placeholder {
+  color: rgba(245, 245, 245, 0.5);
 }
 
 /* Responsive adjustments */
