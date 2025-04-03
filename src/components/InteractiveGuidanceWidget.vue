@@ -11,7 +11,7 @@
         <h3>How can I help you?</h3>
         <textarea
           v-model="userProblem"
-          placeholder="Describe what you're looking for..."
+          placeholder="Describe your HR question or request..."
           @input="handleUserProblemInput"
         ></textarea>
         <button @click="startQuestions" :disabled="!userProblem.trim()">
@@ -34,7 +34,7 @@
           />
         </div>
         <button @click="submitAnswers" :disabled="!canSubmitAnswers">
-          Submit Answers
+          Get Info
         </button>
       </div>
 
@@ -45,7 +45,7 @@
 
       <!-- Solution Section -->
       <div v-if="solution && showSolution" class="solution-section">
-        <h3>Here's our recommended solution:</h3>
+        <h3>Based on your request:</h3>
         <p>{{ solution }}</p>
         
         <!-- Your Answers Section -->
@@ -82,7 +82,7 @@
 
         <!-- Feedback and Reset Buttons -->
         <div class="feedback-section">
-          <h4>Was this solution helpful?</h4>
+          <h4>Was this helpful?</h4>
           <div class="feedback-buttons">
             <button 
               @click="submitFeedback(true)" 
@@ -151,7 +151,7 @@ export default {
     },
     headerText: {
       type: String,
-      default: 'Aidea'
+      default: 'MyHR'
     }
   },
   data() {
