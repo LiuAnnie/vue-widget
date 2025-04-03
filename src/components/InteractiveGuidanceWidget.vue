@@ -524,25 +524,43 @@ export default {
 }
 
 button {
-  width: 100%;
-  max-width: 200px;
-  padding: 0.75rem 1.5rem;
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-  border: none;
-  border-radius: 4px;
   background-color: var(--primary-color);
   color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  font-family: var(--font-primary);
   transition: all 0.3s ease;
-  text-align: center;
+  width: auto;
+  min-width: 120px;
+  margin-left: auto;
+  display: block;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .dark-mode button {
-  background-color: #89AAE6;
+  background-color: var(--primary-color);
+  color: white;
 }
 
 .dark-mode button:hover {
-  background-color: #470FF4;
+  background-color: var(--secondary-color);
+}
+
+.dark-mode button:disabled {
+  background-color: #666;
 }
 
 textarea {
@@ -664,5 +682,26 @@ input {
 
 .dark-mode .user-problem h3 {
   color: #f5f5f5;
+}
+
+/* Update container styles to support right-aligned buttons */
+.user-problem,
+.question-container,
+.answered-questions,
+.solution-section,
+.feedback-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Ensure buttons are right-aligned in their containers */
+.user-problem button,
+.question-container button,
+.answered-questions button,
+.solution-section button,
+.feedback-section button {
+  align-self: flex-end;
+  margin-top: 1rem;
 }
 </style> 
