@@ -8,19 +8,22 @@
     <div class="widget-content">
       <!-- Problem Description Section -->
       <div v-if="!currentQuestions.length && !answeredQuestions.length" class="user-problem">
-        <h3>What problem are you trying to solve?</h3>
+        <h3>How can I help you?</h3>
         <textarea
           v-model="userProblem"
-          placeholder="Describe your problem here..."
+          placeholder="Describe what you're looking for..."
           @input="handleUserProblemInput"
         ></textarea>
         <button @click="startQuestions" :disabled="!userProblem.trim()">
-          Start Questions
+          Continue
         </button>
       </div>
 
       <!-- Questions Section -->
       <div v-else-if="currentQuestions.length > 0" class="questions-section">
+        <button class="back-button" @click="goBack">
+          ←
+        </button>
         <div v-for="question in currentQuestions" :key="question.id" class="question-container">
           <h3>{{ question.text }}</h3>
           <component
@@ -81,8 +84,12 @@
         <div class="feedback-section">
           <h4>Was this solution helpful?</h4>
           <div class="feedback-buttons">
-            <button @click="submitFeedback(true)">Yes</button>
-            <button @click="submitFeedback(false)">No</button>
+            <button @click="submitFeedback(true)" class="feedback-button">
+              👍
+            </button>
+            <button @click="submitFeedback(false)" class="feedback-button">
+              👎
+            </button>
           </div>
           <button @click="resetWidget" class="reset-button">Start Over</button>
         </div>
@@ -298,6 +305,10 @@ export default {
     },
     handleUserProblemInput() {
       // Implementation of handleUserProblemInput method
+    },
+    goBack() {
+      this.currentQuestions = []
+      this.userProblem = ''
     }
   }
 }
@@ -554,6 +565,30 @@ export default {
   justify-content: flex-start;
 }
 
+.feedback-button {
+  background-color: transparent !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+  min-width: auto !important;
+  width: auto !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 1.25rem !important;
+}
+
+.dark-mode .feedback-button {
+  color: #89AAE6 !important;
+  border-color: #89AAE6 !important;
+}
+
+.feedback-button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  transform: none !important;
+}
+
+.dark-mode .feedback-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 /* Base button styles */
 button {
   background-color: var(--primary-color);
@@ -571,7 +606,66 @@ button {
   display: block;
 }
 
-/* Edit buttons specific styles */
+/* Outline button style (used for Cancel and Back buttons) */
+button.outline,
+.edit-buttons button:first-child,
+.back-button {
+  background-color: transparent !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+  min-width: auto !important;
+  width: auto !important;
+}
+
+/* Dark mode styles */
+.dark-mode button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.dark-mode button.outline,
+.dark-mode .edit-buttons button:first-child,
+.dark-mode .back-button {
+  background-color: transparent !important;
+  color: #89AAE6 !important;
+  border-color: #89AAE6 !important;
+}
+
+/* Hover states */
+button:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+button.outline:hover,
+.edit-buttons button:first-child:hover,
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  transform: none !important;
+}
+
+.dark-mode button:hover {
+  background-color: var(--secondary-color);
+}
+
+.dark-mode button.outline:hover,
+.dark-mode .edit-buttons button:first-child:hover,
+.dark-mode .back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Disabled state */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.dark-mode button:disabled {
+  background-color: #666;
+}
+
+/* Edit buttons container */
 .edit-buttons {
   display: flex;
   justify-content: flex-end;
@@ -579,56 +673,26 @@ button {
   margin-top: 1rem;
 }
 
-.edit-buttons button {
-  min-width: 80px;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
+/* Back button specific */
+.back-button {
+  margin-bottom: 1rem;
+  align-self: flex-start;
   margin-left: 0;
-}
-
-.edit-buttons button:first-child {
-  background-color: transparent;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-}
-
-.edit-buttons button:last-child {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-}
-
-/* Remove duplicate button styles */
-.edit-buttons button,
-.feedback-buttons button,
-.reset-button {
-  min-width: 80px;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 1rem;
   font-size: 0.875rem;
 }
 
-button:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-1px);
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.dark-mode button {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.dark-mode button:hover {
-  background-color: var(--secondary-color);
-}
-
-.dark-mode button:disabled {
-  background-color: #666;
+/* Mobile styles */
+@media (max-width: 480px) {
+  .edit-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .edit-buttons button,
+  button {
+    width: 100%;
+  }
 }
 
 textarea {
@@ -839,5 +903,32 @@ input {
   min-width: clamp(80px, 12vw, 120px);
   padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
   font-size: clamp(0.875rem, 1.5vw, 1rem);
+}
+
+.back-button {
+  background-color: transparent !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+  margin-left: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-width: auto !important;
+  width: auto !important;
+}
+
+.dark-mode .back-button {
+  color: #89AAE6 !important;
+  border-color: #89AAE6 !important;
+}
+
+.back-button:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  transform: none !important;
+}
+
+.dark-mode .back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 </style> 
