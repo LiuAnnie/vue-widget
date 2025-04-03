@@ -69,8 +69,8 @@
                 :is-dark-mode="isDarkMode"
               />
               <div class="edit-buttons">
-                <button @click="saveAnswer(answer)">Save</button>
                 <button @click="cancelEdit(answer)">Cancel</button>
+                <button @click="saveAnswer(answer)">Save</button>
               </div>
             </div>
             <div v-else class="answer-display">{{ answer.answer }}</div>
@@ -550,14 +550,14 @@ button {
   background-color: var(--primary-color);
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
   border-radius: 4px;
   cursor: pointer;
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
   font-family: var(--font-primary);
   transition: all 0.3s ease;
   width: auto;
-  min-width: 120px;
+  min-width: clamp(100px, 15vw, 150px);
   margin-left: auto;
   display: block;
 }
@@ -667,19 +667,13 @@ input {
     padding: 0.75rem;
   }
   
-  button {
-    max-width: 100%;
-  }
-  
-  .edit-buttons,
-  .feedback-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
+  button,
   .edit-buttons button,
-  .feedback-buttons button {
-    max-width: 100%;
+  .feedback-buttons button,
+  .reset-button {
+    min-width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -734,12 +728,52 @@ input {
 
 .edit-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
   justify-content: flex-end;
+  gap: 0.25rem;
+  margin-top: 1rem;
 }
 
-.edit-buttons button {
-  min-width: 100px;
+.edit-buttons button:first-child {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.edit-buttons button:last-child {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.edit-buttons button:hover {
+  opacity: 0.9;
+}
+
+.edit-buttons button:first-child:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode styles for edit buttons */
+.dark-mode .edit-buttons button:first-child {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.dark-mode .edit-buttons button:last-child {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.dark-mode .edit-buttons button:first-child:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Override specific button styles while maintaining consistent size */
+.edit-buttons button,
+.feedback-buttons button,
+.reset-button {
+  min-width: clamp(80px, 12vw, 120px);
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
 }
 </style> 
