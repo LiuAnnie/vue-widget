@@ -543,6 +543,7 @@ textarea {
   width: 100%;
   padding: 1rem;
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  font-family: var(--font-primary);
   border: 1px solid var(--secondary-color);
   border-radius: 4px;
   margin: 0.75rem 0;
@@ -558,10 +559,25 @@ textarea {
   background-color: #333;
   border-color: #89AAE6;
   color: #f5f5f5;
+  font-family: var(--font-primary);
 }
 
 .dark-mode textarea::placeholder {
   color: rgba(245, 245, 245, 0.5);
+  font-family: var(--font-primary);
+}
+
+/* Add styles for input elements */
+input {
+  font-family: var(--font-primary);
+}
+
+.dark-mode input {
+  font-family: var(--font-primary);
+}
+
+.dark-mode input::placeholder {
+  font-family: var(--font-primary);
 }
 
 /* Responsive adjustments */
@@ -618,5 +634,25 @@ textarea {
   .feedback-buttons button {
     max-width: 100%;
   }
+}
+
+.dark-mode .user-problem {
+  background-color: #2a2a2a;
+  border-color: #89AAE6;
+  color: #f5f5f5;
+}
+
+.dark-mode .user-problem h3 {
+  color: #f5f5f5;
+}
+
+.dark-mode .user-problem textarea {
+  background-color: #333;
+  border-color: #89AAE6;
+  color: #f5f5f5;
+}
+
+.dark-mode .user-problem textarea::placeholder {
+  color: rgba(245, 245, 245, 0.5);
 }
 </style> 
