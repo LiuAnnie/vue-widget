@@ -24,18 +24,22 @@
         <button class="back-button" @click="goBack">
           ←
         </button>
-        <div v-for="question in currentQuestions" :key="question.id" class="question-container">
-          <h3>{{ question.text }}</h3>
+        <div class="question-container">
+          <h3>{{ currentQuestions[currentQuestionIndex].text }}</h3>
           <component
-            :is="getQuestionComponent(question.type)"
-            :question="question"
-            v-model="answers[question.id]"
+            :is="getQuestionComponent(currentQuestions[currentQuestionIndex].type)"
+            :question="currentQuestions[currentQuestionIndex]"
+            v-model="answers[currentQuestions[currentQuestionIndex].id]"
             :is-dark-mode="isDarkMode"
           />
+          <button 
+            @click="goToNextQuestion" 
+            :disabled="!answers[currentQuestions[currentQuestionIndex].id]"
+            class="continue-button"
+          >
+            Continue
+          </button>
         </div>
-        <button @click="submitAnswers" :disabled="!canSubmitAnswers">
-          Get Info
-        </button>
       </div>
 
       <!-- Loading State -->
@@ -159,6 +163,7 @@ export default {
       userProblem: '',
       problemDescription: '',
       currentQuestions: [],
+      currentQuestionIndex: 0,
       answeredQuestions: [],
       answers: {},
       solution: null,
@@ -314,9 +319,20 @@ export default {
     handleUserProblemInput() {
       // Implementation of handleUserProblemInput method
     },
+    goToNextQuestion() {
+      if (this.currentQuestionIndex < this.currentQuestions.length - 1) {
+        this.currentQuestionIndex++
+      } else {
+        this.submitAnswers()
+      }
+    },
     goBack() {
-      this.currentQuestions = []
-      this.userProblem = ''
+      if (this.currentQuestionIndex > 0) {
+        this.currentQuestionIndex--
+      } else {
+        this.currentQuestions = []
+        this.userProblem = ''
+      }
     }
   }
 }
@@ -399,6 +415,8 @@ export default {
   box-sizing: border-box;
   text-align: left;
   color: var(--text-color);
+  display: flex;
+  flex-direction: column;
 }
 
 .dark-mode .question-container {
@@ -966,5 +984,10 @@ input {
 
 .dark-mode .back-button:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.continue-button {
+  margin-top: 1.5rem;
+  align-self: flex-end;
 }
 </style> 
