@@ -1,7 +1,7 @@
 <template>
   <div class="guidance-widget" :class="{ 'dark-mode': isDarkMode }" :style="widgetStyle">
     <div class="widget-header">
-      <h2>Interactive Guidance</h2>
+      <h2>{{ headerText }}</h2>
       <img :src="config.logo" alt="Logo" class="widget-logo" />
     </div>
 
@@ -129,6 +129,14 @@ export default {
           }
         }
       })
+    },
+    isDarkMode: {
+      type: Boolean,
+      default: false
+    },
+    headerText: {
+      type: String,
+      default: 'Aidea'
     }
   },
   data() {
@@ -140,9 +148,9 @@ export default {
       answers: {},
       solution: null,
       feedback: null,
-      isDarkMode: false,
       showSolution: false,
-      isLoading: false
+      isLoading: false,
+      isDarkMode: false
     }
   },
   computed: {
