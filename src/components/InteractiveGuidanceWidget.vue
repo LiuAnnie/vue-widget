@@ -41,48 +41,51 @@
       </div>
 
       <!-- Solution Section -->
-      <div v-else-if="solution" class="solution-section">
-        <h3>Solution</h3>
+      <div v-if="solution && showSolution" class="solution-section">
+        <h3>Here's our recommended solution:</h3>
         <p>{{ solution }}</p>
         
-        <!-- Answered Questions Section -->
+        <!-- Your Answers Section -->
         <div class="answered-questions">
           <h4>Your Answers</h4>
-          <div v-for="question in answeredQuestions" :key="question.id" class="answered-question">
-            <div class="question-header" @click="editAnswer(question)">
-              <h5>{{ question.text }}</h5>
-              <span class="edit-icon">✎</span>
+          <div v-for="(answer, index) in answeredQuestions" :key="index" class="answered-question">
+            <div class="question-header">
+              <h5>{{ answer.question }}</h5>
+              <span class="edit-icon" @click="editAnswer(index)">✎</span>
             </div>
-            <div v-if="question.isEditing" class="edit-answer">
+            <div v-if="answer.isEditing" class="edit-answer">
               <component
-                :is="getQuestionComponent(question.type)"
-                :question="question"
-                v-model="answers[question.id]"
+                :is="getQuestionComponent(answer.type)"
+                :question="{ 
+                  id: answer.id, 
+                  type: answer.type, 
+                  text: answer.question,
+                  options: answer.options,
+                  placeholder: answer.placeholder,
+                  min: answer.min,
+                  max: answer.max
+                }"
+                v-model="answers[answer.id]"
                 :is-dark-mode="isDarkMode"
               />
               <div class="edit-buttons">
-                <button @click="saveAnswer(question)">Save</button>
-                <button @click="cancelEdit(question)">Cancel</button>
+                <button @click="saveAnswer(answer)">Save</button>
+                <button @click="cancelEdit(answer)">Cancel</button>
               </div>
             </div>
-            <div v-else class="answer-display">
-              {{ formatAnswer(answers[question.id]) }}
-            </div>
+            <div v-else class="answer-display">{{ answer.answer }}</div>
           </div>
         </div>
 
+        <!-- Feedback and Reset Buttons -->
         <div class="feedback-section">
           <h4>Was this solution helpful?</h4>
           <div class="feedback-buttons">
-            <button @click="submitFeedback(true)" :class="{ active: feedback === true }">
-              Yes
-            </button>
-            <button @click="submitFeedback(false)" :class="{ active: feedback === false }">
-              No
-            </button>
+            <button @click="submitFeedback(true)">Yes</button>
+            <button @click="submitFeedback(false)">No</button>
           </div>
+          <button @click="resetWidget" class="reset-button">Start Over</button>
         </div>
-        <button class="reset-button" @click="resetForm">Start Over</button>
       </div>
     </div>
   </div>
@@ -204,25 +207,42 @@ export default {
     },
     async submitAnswers() {
       this.isLoading = true
-      this.answeredQuestions.push(...this.currentQuestions)
+      // Store both question and answer for each answered question
+      this.answeredQuestions = this.currentQuestions.map(question => ({
+        question: question.text,
+        answer: this.answers[question.id],
+        id: question.id,
+        type: question.type,
+        options: question.options,
+        isEditing: false
+      }))
       this.currentQuestions = []
       
       try {
         // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1500))
         this.solution = await mockDataService.getSolution(this.answers)
+        this.showSolution = true
       } catch (error) {
         console.error('Error fetching solution:', error)
         this.solution = "Sorry, there was an error generating your solution. Please try again."
+        this.showSolution = true
       } finally {
         this.isLoading = false
       }
     },
-    editAnswer(question) {
-      question.isEditing = true
+    editAnswer(index) {
+      // Reset all other editing states
+      this.answeredQuestions.forEach(q => q.isEditing = false)
+      // Set current answer to editing
+      this.answeredQuestions[index].isEditing = true
+      // Set the current answer in the answers object
+      this.answers[this.answeredQuestions[index].id] = this.answeredQuestions[index].answer
     },
-    async saveAnswer(question) {
-      question.isEditing = false
+    async saveAnswer(answer) {
+      answer.isEditing = false
+      // Update the answer in the answeredQuestions array
+      answer.answer = this.answers[answer.id]
       this.isLoading = true
       
       try {
@@ -236,8 +256,10 @@ export default {
         this.isLoading = false
       }
     },
-    cancelEdit(question) {
-      question.isEditing = false
+    cancelEdit(answer) {
+      answer.isEditing = false
+      // Reset the answer to its original value
+      this.answers[answer.id] = answer.answer
     },
     formatAnswer(answer) {
       if (Array.isArray(answer)) return answer.join(', ')
@@ -253,7 +275,7 @@ export default {
         // Handle error appropriately
       }
     },
-    resetForm() {
+    resetWidget() {
       this.answers = {}
       this.currentQuestions = []
       this.answeredQuestions = []
@@ -261,6 +283,7 @@ export default {
       this.feedback = null
       this.problemDescription = ''
       this.userProblem = ''
+      this.showSolution = false
     },
     startQuestions() {
       this.submitProblem()
@@ -703,5 +726,20 @@ input {
 .feedback-section button {
   align-self: flex-end;
   margin-top: 1rem;
+}
+
+.edit-answer {
+  margin-top: 1rem;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: flex-end;
+}
+
+.edit-buttons button {
+  min-width: 100px;
 }
 </style> 
