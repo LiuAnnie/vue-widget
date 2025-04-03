@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Guidance Widget</title>
+    <!-- Load Vue first -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Load widget styles -->
     <link rel="stylesheet" href="dist/style.css">
     <style>
         body {
@@ -11,30 +14,47 @@
             margin: 0;
             padding: 20px;
             background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         #widget-container {
+            width: 100%;
             max-width: 600px;
-            margin: 2rem auto;
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
     </style>
 </head>
 <body>
-    <div id="widget-container"></div>
+    <div id="widget-container">
+        <div class="loading">Loading widget...</div>
+    </div>
+
+    <!-- Load widget script -->
     <script src="dist/vue-widget.umd.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing widget...');
-            
-            try {
-                // Check if VueWidget is available
-                if (typeof VueWidget === 'undefined') {
-                    throw new Error('VueWidget is not defined. Check if the script loaded correctly.');
-                }
+        // Wait for both Vue and the widget script to load
+        function initializeWidget() {
+            if (typeof Vue === 'undefined') {
+                console.error('Vue is not loaded');
+                return;
+            }
+            if (typeof VueWidget === 'undefined') {
+                console.error('VueWidget is not loaded');
+                return;
+            }
 
+            try {
+                console.log('Initializing widget...');
                 const widget = new VueWidget({
                     target: '#widget-container',
                     config: {
@@ -51,7 +71,6 @@
                     isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
                 });
 
-                console.log('Widget instance created, mounting...');
                 widget.mount();
                 console.log('Widget mounted successfully');
             } catch (error) {
@@ -64,7 +83,14 @@
                     </div>
                 `;
             }
-        });
+        }
+
+        // Initialize when the page loads
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeWidget);
+        } else {
+            initializeWidget();
+        }
     </script>
 </body>
 </html> 
