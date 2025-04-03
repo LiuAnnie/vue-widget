@@ -10,7 +10,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/widget.js'),
       name: 'VueWidget',
       fileName: (format) => `vue-widget.${format}.js`,
-      formats: ['es', 'umd']
+      formats: ['umd', 'es']
     },
     rollupOptions: {
       external: ['vue'],
@@ -19,7 +19,9 @@ export default defineConfig({
           vue: 'Vue'
         }
       }
-    }
+    },
+    outDir: 'public/dist',
+    emptyOutDir: true
   },
   resolve: {
     alias: {
