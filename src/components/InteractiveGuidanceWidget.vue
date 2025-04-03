@@ -7,15 +7,15 @@
 
     <div class="widget-content">
       <!-- Problem Description Section -->
-      <div v-if="!problemDescription" class="problem-description">
+      <div v-if="!currentQuestions.length && !answeredQuestions.length" class="user-problem">
         <h3>What problem are you trying to solve?</h3>
         <textarea
           v-model="userProblem"
-          placeholder="Please describe your problem..."
-          rows="4"
+          placeholder="Describe your problem here..."
+          @input="handleUserProblemInput"
         ></textarea>
-        <button @click="submitProblem" :disabled="!userProblem.trim()">
-          Continue
+        <button @click="startQuestions" :disabled="!userProblem.trim()">
+          Start Questions
         </button>
       </div>
 
@@ -261,6 +261,12 @@ export default {
       this.feedback = null
       this.problemDescription = ''
       this.userProblem = ''
+    },
+    startQuestions() {
+      this.submitProblem()
+    },
+    handleUserProblemInput() {
+      // Implementation of handleUserProblemInput method
     }
   }
 }
@@ -636,23 +642,27 @@ input {
   }
 }
 
+.user-problem {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--secondary-color);
+  margin-bottom: 1.5rem;
+}
+
+.user-problem h3 {
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  text-align: left;
+}
+
 .dark-mode .user-problem {
   background-color: #2a2a2a;
   border-color: #89AAE6;
-  color: #f5f5f5;
 }
 
 .dark-mode .user-problem h3 {
   color: #f5f5f5;
-}
-
-.dark-mode .user-problem textarea {
-  background-color: #333;
-  border-color: #89AAE6;
-  color: #f5f5f5;
-}
-
-.dark-mode .user-problem textarea::placeholder {
-  color: rgba(245, 245, 245, 0.5);
 }
 </style> 
