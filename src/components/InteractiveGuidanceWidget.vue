@@ -554,6 +554,7 @@ export default {
   justify-content: flex-start;
 }
 
+/* Base button styles */
 button {
   background-color: var(--primary-color);
   color: white;
@@ -568,6 +569,42 @@ button {
   min-width: clamp(100px, 15vw, 150px);
   margin-left: auto;
   display: block;
+}
+
+/* Edit buttons specific styles */
+.edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.edit-buttons button {
+  min-width: 80px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  margin-left: 0;
+}
+
+.edit-buttons button:first-child {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.edit-buttons button:last-child {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+/* Remove duplicate button styles */
+.edit-buttons button,
+.feedback-buttons button,
+.reset-button {
+  min-width: 80px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
 }
 
 button:hover {
@@ -737,8 +774,15 @@ input {
 .edit-buttons {
   display: flex;
   justify-content: flex-end;
-  gap: 0.25rem;
+  gap: 0.75rem;
   margin-top: 1rem;
+}
+
+.edit-buttons button {
+  min-width: 80px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  margin-left: 0;
 }
 
 .edit-buttons button:first-child {
@@ -774,6 +818,18 @@ input {
 
 .dark-mode .edit-buttons button:first-child:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .edit-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .edit-buttons button {
+    width: 100%;
+  }
 }
 
 /* Override specific button styles while maintaining consistent size */
