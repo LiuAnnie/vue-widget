@@ -55,13 +55,7 @@ export const mockDataService = {
     const details = answers[3] || 'no details provided'
     const number = answers[4] || 'unknown'
 
-    return 'Based on your answers:\n' +
-      '- Problem Type: ' + problemType + '\n' +
-      '- Preferred Style: ' + style + '\n' +
-      '- Details: ' + details + '\n' +
-      '- Number of affected items: ' + number + '\n\n' +
-      'Here\'s our recommended solution:\n' +
-      '1. First, analyze the specific requirements based on your ' + problemType + ' problem\n' +
+    return '1. First, analyze the specific requirements based on your ' + problemType + ' problem\n' +
       '2. Consider implementing a ' + style + ' approach to address the needs of ' + number + ' affected items\n' +
       '3. Focus on the key details you provided: ' + details + '\n' +
       '4. Monitor the implementation and gather feedback from users\n\n' +
