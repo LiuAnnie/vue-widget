@@ -2,10 +2,18 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  font-size: clamp(14px, 1vw, 16px);
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+
+  /* Define CSS variables */
+  --primary-color: #535bf2;
+  --secondary-color: #747bff;
+  --text-color: #213547;
+  --background-color: #ffffff;
+  --font-primary: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,23 +43,39 @@ h1 {
   line-height: 1.1;
 }
 
+/* Base Button Styles */
 button {
-  border-radius: 8px;
+  border-radius: clamp(0.5rem, 1vw, 0.8rem);
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: clamp(0.5em, 1.5vw, 0.8em) clamp(1em, 2vw, 1.5em);
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: transparent;
+  color: var(--text-color);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
+  box-shadow: none;
+  min-width: clamp(100px, 15vw, 150px);
+  line-height: 1.2;
 }
+
 button:hover {
-  border-color: #646cff;
+  opacity: 0.9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 .card {
@@ -59,21 +83,653 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
+  max-width: min(95vw, 1280px);
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
+    --text-color: #213547;
+    --background-color: #ffffff;
   }
+  
+  a {
+    color: #535bf2;
+  }
+  
   a:hover {
     color: #747bff;
   }
+
+  .guidance-widget {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  .widget-header h2 {
+    color: #535bf2;
+  }
+
+  .user-problem textarea {
+    color: #213547;
+    border-color: #535bf2;
+  }
+
+  .answered-question {
+    background-color: rgba(83, 91, 242, 0.05);
+    color: #213547;
+  }
+
+  .edit-icon {
+    color: #535bf2;
+  }
+
+  .continue-button {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 4px rgba(83, 91, 242, 0.2);
+  }
+
+  .continue-button:hover {
+    background-color: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(83, 91, 242, 0.3);
+  }
+
+  .continue-button:disabled {
+    background-color: #a5a9f3;
+  }
+
+  .option.selected {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 0 10px rgba(83, 91, 242, 0.3);
+  }
+
+  .option.selected:hover {
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 15px rgba(83, 91, 242, 0.4);
+  }
+
+  .image-option {
+    border-color: var(--primary-color);
+    color: var(--text-color);
+  }
+
+  .image-option:hover {
+    border-color: var(--secondary-color);
+  }
+
+  .image-option.selected {
+    background-color: rgba(83, 91, 242, 0.05);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(83, 91, 242, 0.2);
+  }
+
+  .image-option.selected:hover {
+    background-color: rgba(83, 91, 242, 0.1);
+    box-shadow: 0 0 15px rgba(83, 91, 242, 0.3);
+  }
+
+  .image-option span {
+    color: var(--text-color);
+  }
+
+  .back-button,
+  .feedback-button {
+    color: var(--primary-color);
+    background: none;
+  }
+
+  .feedback-button.selected {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* Widget Container Styles */
+.guidance-widget {
+  max-width: min(90vw, 600px);
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
+  border-radius: clamp(8px, 1.5vw, 12px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-primary);
+  transition: all 0.3s ease;
+}
+
+.guidance-widget.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Widget Header */
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+  position: relative;
+}
+
+.widget-header h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin: 0;
+  color: var(--primary-color);
+  flex: 1;
+  text-align: left;
+  padding-right: clamp(2.5rem, 5vw, 3rem);
+}
+
+.widget-logo {
+  height: clamp(32px, 5vw, 40px);
+  width: auto;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Edit Icon */
+.edit-icon {
+  cursor: pointer;
+  color: var(--text-color);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  transition: all 0.2s ease;
+}
+
+.edit-icon:hover {
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+/* Widget Content */
+.widget-content {
+  padding: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* User Problem Section */
+.user-problem {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-problem textarea {
+  width: 100%;
+  min-height: clamp(80px, 15vh, 100px);
+  padding: clamp(0.75rem, 1.5vw, 1rem);
+  margin: clamp(0.75rem, 1.5vw, 1rem) 0;
+  border: clamp(1px, 0.2vw, 2px) solid var(--secondary-color);
+  border-radius: clamp(6px, 1vw, 8px);
+  background-color: transparent;
+  color: var(--text-color);
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  resize: vertical;
+}
+
+.user-problem button {
+  align-self: flex-end;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 4px rgba(71, 15, 244, 0.2);
+  font-weight: 600;
+  padding: clamp(0.6em, 1.5vw, 0.8em) clamp(1.2em, 2.5vw, 1.5em);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  min-width: clamp(120px, 20vw, 180px);
+}
+
+.user-problem button:hover {
+  box-shadow: 0 4px 8px rgba(71, 15, 244, 0.3);
+  transform: translateY(-2px);
+}
+
+.user-problem button:disabled {
+  background-color: #a5a9f3;
+}
+
+/* Questions Section */
+.questions-section {
+  position: relative;
+}
+
+/* Back Button */
+.back-button {
+  position: relative;
+  left: 0;
+  margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+  background: none;
+  border: none;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  cursor: pointer;
+  color: var(--primary-color);
+  padding: clamp(0.3rem, 0.8vw, 0.5rem);
+  display: flex;
+  align-items: center;
+  min-width: auto;
+}
+
+.question-container {
+  padding: clamp(1rem, 3vw, 2rem) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Continue Button */
+.continue-button {
+  align-self: flex-end;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 4px rgba(71, 15, 244, 0.2);
+  font-weight: 600;
+  padding: clamp(0.6em, 1.5vw, 0.8em) clamp(1.2em, 2.5vw, 1.5em);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  min-width: clamp(120px, 20vw, 180px);
+}
+
+.continue-button:hover {
+  box-shadow: 0 4px 8px rgba(71, 15, 244, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Solution Section */
+.solution-section {
+  text-align: left;
+}
+
+.solution-section h3 {
+  color: var(--primary-color);
+  font-size: var(--subheading-size);
+}
+
+/* Answered Questions */
+.answered-questions {
+  margin-top: clamp(1rem, 3vw, 2rem);
+}
+
+.answered-question {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: clamp(0.75rem, 1.5vw, 1rem);
+  margin: clamp(0.75rem, 1.5vw, 1rem) 0;
+  border-radius: clamp(6px, 1vw, 8px);
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  margin-top: clamp(0.75rem, 1.5vw, 1rem);
+}
+
+.edit-buttons .cancel-button {
+  background: none;
+  border: clamp(1px, 0.2vw, 2px) solid var(--primary-color);
+  color: var(--primary-color);
+  min-width: clamp(80px, 12vw, 100px);
+}
+
+.edit-buttons .cancel-button:hover {
+  background-color: rgba(83, 91, 242, 0.05);
+  box-shadow: 0 2px 4px rgba(83, 91, 242, 0.1);
+}
+
+.edit-buttons .save-button {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 2px 4px rgba(71, 15, 244, 0.2);
+  font-weight: 600;
+  padding: clamp(0.6em, 1.5vw, 0.8em) clamp(1.2em, 2.5vw, 1.5em);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  min-width: clamp(120px, 20vw, 180px);
+}
+
+.edit-buttons .save-button:hover {
+  box-shadow: 0 4px 8px rgba(71, 15, 244, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Feedback Section */
+.feedback-section {
+  margin-top: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+}
+
+.feedback-buttons {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  margin: clamp(0.75rem, 1.5vw, 1rem) 0;
+}
+
+/* Feedback Button */
+.feedback-button {
+  background: none;
+  border: none;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  cursor: pointer;
+  padding: clamp(0.3rem, 0.8vw, 0.5rem);
+  border-radius: 50%;
+  transition: all 0.2s;
+  min-width: auto;
+}
+
+.feedback-button:hover {
+  transform: scale(1.1);
+}
+
+.feedback-button.selected {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 10px rgba(71, 15, 244, 0.3);
+}
+
+/* Selected Options */
+.option.selected {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 10px rgba(71, 15, 244, 0.3);
+  border-color: var(--primary-color);
+}
+
+.option.selected:hover {
+  box-shadow: 0 0 15px rgba(71, 15, 244, 0.4);
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #ffffff;
+    background-color: #242424;
+    --text-color: #ffffff;
+    --background-color: #1a1a1a;
+  }
+
+  .guidance-widget {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .answered-question {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+  }
+
+  .user-problem textarea {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    border-color: var(--secondary-color);
+  }
+
+  .user-problem textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .continue-button {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 4px rgba(71, 15, 244, 0.3);
+  }
+
+  .continue-button:hover {
+    box-shadow: 0 4px 8px rgba(71, 15, 244, 0.4);
+  }
+
+  .continue-button:disabled {
+    background-color: #666;
+  }
+
+  .option.selected {
+    box-shadow: 0 0 15px rgba(137, 170, 230, 0.5),
+                0 0 30px rgba(137, 170, 230, 0.3);
+  }
+
+  .option.selected:hover {
+    box-shadow: 0 0 20px rgba(137, 170, 230, 0.6),
+                0 0 40px rgba(137, 170, 230, 0.4);
+  }
+
+  .image-option {
+    border-color: var(--secondary-color);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .image-option:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .image-option.selected {
+    border-color: var(--primary-color);
+    background-color: rgba(137, 170, 230, 0.1);
+    box-shadow: 0 0 clamp(10px, 2vw, 15px) rgba(137, 170, 230, 0.3),
+                0 0 clamp(20px, 4vw, 30px) rgba(137, 170, 230, 0.2);
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .image-option.selected:hover {
+    box-shadow: 0 0 clamp(15px, 3vw, 20px) rgba(137, 170, 230, 0.4),
+                0 0 clamp(30px, 6vw, 40px) rgba(137, 170, 230, 0.3);
+  }
+
+  .image-option span {
+    color: var(--text-color);
+  }
+
+  .back-button,
+  .feedback-button {
+    color: var(--primary-color);
+    background: none;
+  }
+
+  .feedback-button.selected {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  button {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .user-problem button {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(71, 15, 244, 0.3);
+  }
+
+  .user-problem button:hover {
+    box-shadow: 0 4px 8px rgba(71, 15, 244, 0.4);
+  }
+
+  .user-problem button:disabled {
+    background-color: #666;
+  }
+
+  .edit-buttons .cancel-button {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .edit-buttons .cancel-button:hover {
+    background-color: rgba(137, 170, 230, 0.1);
+    box-shadow: 0 2px 4px rgba(137, 170, 230, 0.2);
+  }
+
+  .edit-buttons .save-button {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(71, 15, 244, 0.3);
+  }
+
+  .edit-buttons .save-button:hover {
+    box-shadow: 0 4px 8px rgba(71, 15, 244, 0.4);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 15px rgba(137, 170, 230, 0.5),
+                0 0 30px rgba(137, 170, 230, 0.3);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(137, 170, 230, 0.6),
+                0 0 40px rgba(137, 170, 230, 0.4);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guidance-widget {
+    padding: clamp(0.75rem, 2vw, 1rem);
+  }
+  
+  .widget-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(0.75rem, 1.5vw, 1rem);
+  }
+  
+  .widget-header h2 {
+    padding-right: clamp(2rem, 4vw, 2.5rem);
+  }
+  
+  .widget-logo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: none;
+  }
+
+  .question-container {
+    padding: clamp(0.75rem, 2vw, 1rem) 0;
+  }
+
+  button {
+    padding: clamp(0.4em, 1.2vw, 0.6em) clamp(0.8em, 1.5vw, 1.2em);
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+    min-width: clamp(80px, 12vw, 120px);
+  }
+
+  .continue-button {
+    padding: clamp(0.5em, 1.2vw, 0.7em) clamp(1em, 1.8vw, 1.2em);
+    font-size: clamp(0.85rem, 1.5vw, 1rem);
+    min-width: clamp(100px, 15vw, 140px);
+  }
+
+  .feedback-button {
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    padding: clamp(0.25rem, 0.6vw, 0.4rem);
+  }
+
+  .image-options {
+    grid-template-columns: repeat(auto-fit, minmax(clamp(80px, 12vw, 100px), 1fr));
+    gap: clamp(0.5rem, 1vw, 0.75rem);
+  }
+
+  .image-option {
+    padding: clamp(0.5rem, 1vw, 0.75rem);
+  }
+
+  .image-option img {
+    width: clamp(24px, 5vw, 32px);
+    height: clamp(24px, 5vw, 32px);
+  }
+
+  #app {
+    padding: clamp(0.75rem, 2vw, 1rem);
+  }
+}
+
+/* Image Enum Question Styles */
+.image-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(100px, 15vw, 120px), 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  margin: clamp(0.75rem, 1.5vw, 1rem) 0;
+}
+
+.image-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(0.75rem, 1.5vw, 1rem);
+  border: clamp(1px, 0.2vw, 2px) solid var(--secondary-color);
+  border-radius: clamp(6px, 1vw, 8px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.image-option:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-option.selected {
+  border-color: var(--primary-color);
+  background-color: rgba(71, 15, 244, 0.05);
+  box-shadow: 0 0 10px rgba(71, 15, 244, 0.2);
+}
+
+.image-option.selected:hover {
+  box-shadow: 0 0 15px rgba(71, 15, 244, 0.3);
+}
+
+.image-option img {
+  width: clamp(32px, 6vw, 48px);
+  height: clamp(32px, 6vw, 48px);
+  margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
+}
+
+.image-option span {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Dark Mode Adjustments */
+@media (prefers-color-scheme: dark) {
+  .image-option {
+    border-color: var(--secondary-color);
+  }
+
+  .image-option:hover {
+    border-color: var(--primary-color);
+  }
+
+  .image-option.selected {
+    border-color: var(--primary-color);
+    background-color: rgba(137, 170, 230, 0.1);
+    box-shadow: 0 0 clamp(10px, 2vw, 15px) rgba(137, 170, 230, 0.3),
+                0 0 clamp(20px, 4vw, 30px) rgba(137, 170, 230, 0.2);
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .image-option.selected:hover {
+    box-shadow: 0 0 clamp(15px, 3vw, 20px) rgba(137, 170, 230, 0.4),
+                0 0 clamp(30px, 6vw, 40px) rgba(137, 170, 230, 0.3);
   }
 }
