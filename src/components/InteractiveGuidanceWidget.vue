@@ -543,26 +543,19 @@ export default {
 }
 
 .feedback-section {
-  margin-top: 1.5rem;
-  text-align: left;
+  text-align: center;
 }
 
 .feedback-section h4 {
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  text-align: center;
   margin-bottom: 1rem;
-  color: var(--accent-color);
-  text-align: left;
-}
-
-.dark-mode .feedback-section h4 {
-  color: #f5f5f5;
 }
 
 .feedback-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem !important;
   margin-top: 1rem;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .feedback-button {
@@ -573,20 +566,16 @@ export default {
   width: auto !important;
   padding: 0.5rem 1rem !important;
   font-size: 1.25rem !important;
+  margin: 0 !important;
 }
 
-.dark-mode .feedback-button {
-  color: #89AAE6 !important;
-  border-color: #89AAE6 !important;
-}
-
-.feedback-button:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-  transform: none !important;
-}
-
-.dark-mode .feedback-button:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+/* Remove any other conflicting styles */
+.edit-buttons button,
+.feedback-buttons button,
+.reset-button {
+  min-width: clamp(80px, 12vw, 120px);
+  padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
 }
 
 /* Base button styles */
