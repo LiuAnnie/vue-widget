@@ -98,7 +98,7 @@ export default {
 
 .option-label.dark-mode.selected {
   background-color: #333;
-  border-color: #470FF4;
+  border-color: var(--primary-color);
   border-width: 2px;
   box-shadow: 0 0 12px rgba(71, 15, 244, 0.6);
   transform: translateY(-1px);

@@ -1,7 +1,7 @@
 <template>
   <div class="loading-spinner" :class="{ 'dark-mode': isDarkMode }">
     <div class="spinner"></div>
-    <div class="loading-text">Generating solution...</div>
+    <div class="loading-text">Processing your request...</div>
   </div>
 </template>
 

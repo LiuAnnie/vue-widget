@@ -8,33 +8,41 @@ export const mockDataService = {
       {
         id: 1,
         type: 'text-enum',
-        text: 'What type of problem are you experiencing?',
-        options: ['Technical', 'Design', 'Business', 'Other']
+        text: 'What type of HR question do you have?',
+        options: [
+          'Benefits-related (Health Insurance, Retirement Plans)',
+          'Timesheet Submission Process',
+          'Holiday or Vacation Policies',
+          'Payroll Information',
+          'HR Policies and Procedures',
+          'Sick Leave or Paid Time Off',
+          'Office Attendance Policies'
+        ]
       },
       {
         id: 2,
         type: 'image-enum',
-        text: 'Which style best represents your needs?',
+        text: 'Which communication style would you prefer for this matter?',
         options: [
-          { value: 'modern', label: 'Modern', imageUrl: '/images/modern.svg' },
-          { value: 'classic', label: 'Classic', imageUrl: '/images/classic.svg' },
-          { value: 'minimalist', label: 'Minimalist', imageUrl: '/images/minimalist.svg' }
+          { value: 'AI summary', label: 'AI Summary', imageUrl: '/images/textguide.svg' },
+          { value: 'link to company documentation', label: 'Company Documentation', imageUrl: '/images/docs.svg' },
+          { value: 'video', label: 'Video Walkthrough', imageUrl: '/images/video.svg' }
         ]
       },
       {
         id: 3,
         type: 'text-box',
-        text: 'Please provide more details about your specific situation.',
-        placeholder: 'Enter your situation details...',
+        text: 'Your Company Email Address.',
+        placeholder: 'you@company.com',
         rows: 4
       },
       {
         id: 4,
         type: 'numerical',
-        text: 'How many users or items are affected by this issue?',
+        text: 'Your Employee ID.',
         min: 1,
-        max: 1000000,
-        placeholder: 'Enter number'
+        max: 99999999,
+        placeholder: '12345678'
       }
     ]
   },
@@ -50,16 +58,19 @@ export const mockDataService = {
 
   generateSolution(answers) {
     // Generate a solution that references all the answers
-    const problemType = answers[1] || 'unknown'
-    const style = answers[2] || 'unknown'
-    const details = answers[3] || 'no details provided'
-    const number = answers[4] || 'unknown'
+    const questionType = answers[1] || 'unknown'
+    const guidanceFormat = answers[2] || 'unknown'
+    const email = answers[3] || 'no email provided'
+    const employeeId = answers[4] || 'unknown'
 
-    return '1. First, analyze the specific requirements based on your ' + problemType + ' problem\n' +
-      '2. Consider implementing a ' + style + ' approach to address the needs of ' + number + ' affected items\n' +
-      '3. Focus on the key details you provided: ' + details + '\n' +
-      '4. Monitor the implementation and gather feedback from users\n\n' +
-      'Would you like to proceed with this solution?'
+    // Determine the correct article based on the guidance format
+    const article = guidanceFormat.toLowerCase().startsWith('ai') ? 'an' : 'a'
+
+    return `We've received your request on information about ${questionType}. ` +
+      `We'll send ${article} ${guidanceFormat} to your provided email address. ` +
+      `Typical response time is 2 minutes, but more complicated requests can take up to 2 hours. ` +
+      `Thank you for your patience.\n\n` +
+      `Request successfully processed for employee ${employeeId}.`
   },
 
   async submitFeedback(feedback) {
