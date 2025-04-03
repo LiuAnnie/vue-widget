@@ -552,18 +552,35 @@ export default {
 
 .feedback-section {
   text-align: center;
+  position: relative;
 }
 
 .feedback-section h4 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .feedback-buttons {
   display: flex;
   gap: 0.75rem !important;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   justify-content: center;
+}
+
+.feedback-section .reset-button {
+  margin-top: 3rem !important;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.reset-button {
+  margin-top: 5rem;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .feedback-button {
