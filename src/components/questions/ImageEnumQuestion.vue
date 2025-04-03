@@ -76,8 +76,9 @@ export default {
 
 .option-card.selected {
   border-color: var(--primary-color);
-  background-color: rgba(71, 15, 244, 0.05);
-  box-shadow: 0 2px 8px rgba(71, 15, 244, 0.2);
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(71, 15, 244, 0.2);
+  transform: translateY(-2px);
 }
 
 .option-image {
@@ -97,7 +98,7 @@ export default {
 }
 
 .dark-mode .option-card {
-  background-color: #2a2a2a;
+  background-color: #d6d6d6;
   border-color: #89AAE6;
 }
 
@@ -107,13 +108,14 @@ export default {
 }
 
 .dark-mode .option-card.selected {
-  background-color: rgba(71, 15, 244, 0.1);
   border-color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(71, 15, 244, 0.3);
+  border-width: 2px;
+  box-shadow: 0 4px 12px rgba(71, 15, 244, 0.3);
+  transform: translateY(-2px);
 }
 
 .dark-mode .option-label {
-  color: #f5f5f5;
+  color: #333;
 }
 
 /* Responsive adjustments */
