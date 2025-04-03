@@ -275,6 +275,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  text-align: left;
 }
 
 .dark-mode .guidance-widget {
@@ -288,24 +289,40 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 1rem;
+  position: relative;
+  padding-right: 140px;
+  text-align: left;
 }
 
 .widget-header h2 {
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   margin: 0;
   color: var(--accent-color);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1rem;
+  text-align: left;
 }
 
 .widget-logo {
   max-width: 120px;
   height: auto;
   object-fit: contain;
+  flex-shrink: 0;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .widget-content {
   width: 100%;
+  text-align: left;
 }
 
 .question-container {
@@ -316,6 +333,7 @@ export default {
   border-radius: 4px;
   background-color: white;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .question-container h3 {
@@ -323,6 +341,7 @@ export default {
   margin-top: 0;
   margin-bottom: 1rem;
   color: var(--accent-color);
+  text-align: left;
 }
 
 .answered-questions {
@@ -333,12 +352,14 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+  text-align: left;
 }
 
 .answered-questions h4 {
   font-size: clamp(1.1rem, 3vw, 1.5rem);
   margin-bottom: 1rem;
   color: var(--accent-color);
+  text-align: left;
 }
 
 .answered-question {
@@ -349,12 +370,14 @@ export default {
   border: 1px solid var(--secondary-color);
   border-radius: 4px;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .question-header h5 {
   font-size: clamp(0.9rem, 2.5vw, 1.2rem);
   margin: 0;
   color: var(--text-color);
+  text-align: left;
 }
 
 .answer-display {
@@ -363,6 +386,7 @@ export default {
   color: var(--text-color);
   background-color: rgba(71, 15, 244, 0.05);
   border-radius: 4px;
+  text-align: left;
 }
 
 .solution-section {
@@ -373,18 +397,40 @@ export default {
   border-radius: 4px;
   background-color: white;
   box-sizing: border-box;
+  text-align: left;
 }
 
 .solution-section h3 {
   font-size: clamp(1.1rem, 3vw, 1.5rem);
   margin-bottom: 1rem;
   color: var(--accent-color);
+  text-align: left;
 }
 
 .solution-section p {
   font-size: clamp(0.9rem, 2.5vw, 1.1rem);
   line-height: 1.6;
   white-space: pre-line;
+  text-align: left;
+}
+
+.feedback-section {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.feedback-section h4 {
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+  text-align: left;
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: flex-start;
 }
 
 button {
@@ -398,6 +444,7 @@ button {
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-align: center;
 }
 
 textarea {
@@ -410,6 +457,7 @@ textarea {
   resize: vertical;
   min-height: 100px;
   box-sizing: border-box;
+  text-align: left;
 }
 
 /* Responsive adjustments */
@@ -419,8 +467,7 @@ textarea {
   }
   
   .widget-header {
-    flex-direction: column;
-    align-items: flex-start;
+    padding-right: 120px;
   }
   
   .widget-logo {
@@ -437,6 +484,14 @@ textarea {
 @media (max-width: 480px) {
   .guidance-widget {
     padding: 1rem;
+  }
+  
+  .widget-header {
+    padding-right: 100px;
+  }
+  
+  .widget-logo {
+    max-width: 80px;
   }
   
   .question-container,
