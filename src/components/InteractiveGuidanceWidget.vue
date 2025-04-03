@@ -84,14 +84,22 @@
         <div class="feedback-section">
           <h4>Was this solution helpful?</h4>
           <div class="feedback-buttons">
-            <button @click="submitFeedback(true)" class="feedback-button">
+            <button 
+              @click="submitFeedback(true)" 
+              class="feedback-button"
+              :class="{ 'selected': feedback === true }"
+            >
               👍
             </button>
-            <button @click="submitFeedback(false)" class="feedback-button">
+            <button 
+              @click="submitFeedback(false)" 
+              class="feedback-button"
+              :class="{ 'selected': feedback === false }"
+            >
               👎
             </button>
           </div>
-          <button @click="resetWidget" class="reset-button">Start Over</button>
+          <button @click="resetWidget" class="reset-button">Done</button>
         </div>
       </div>
     </div>
@@ -567,6 +575,28 @@ export default {
   padding: 0.5rem 1rem !important;
   font-size: 1.25rem !important;
   margin: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.feedback-button.selected {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+
+.dark-mode .feedback-button.selected {
+  background-color: #89AAE6 !important;
+  color: white !important;
+}
+
+.feedback-button:hover {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  transform: translateY(-1px) !important;
+}
+
+.dark-mode .feedback-button:hover {
+  background-color: #89AAE6 !important;
+  color: white !important;
 }
 
 /* Remove any other conflicting styles */
