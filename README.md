@@ -74,7 +74,7 @@ The application can be customized through props:
 
 ```javascript
 const config = {
-  logo: '/logo.svg',
+  logo: '/',
   colors: {
     primary: '#4CAF50',
     secondary: '#2196F3',

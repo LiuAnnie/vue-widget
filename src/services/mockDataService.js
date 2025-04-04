@@ -24,7 +24,7 @@ export const mockDataService = {
         type: 'image-enum',
         text: 'Which communication style would you prefer for this matter?',
         options: [
-          { value: 'AI summary', label: 'AI Summary', imageUrl: '/images/textguide.svg' },
+          { value: 'AI summary', label: 'AI Summary', imageUrl: 'images/textguide.svg' },
           { value: 'link to company documentation', label: 'Company Documentation', imageUrl: '/images/docs.svg' },
           { value: 'video', label: 'Video Walkthrough', imageUrl: '/images/video.svg' }
         ]
