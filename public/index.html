@@ -42,19 +42,38 @@
     <!-- Load widget script -->
     <script src="dist/vue-widget.umd.js"></script>
     <script>
+        // Debug logging
+        console.log('Script started');
+        console.log('Vue version:', Vue.version);
+        
         // Wait for both Vue and the widget script to load
         function initializeWidget() {
+            console.log('Initializing widget...');
+            
             if (typeof Vue === 'undefined') {
                 console.error('Vue is not loaded');
+                document.getElementById('widget-container').innerHTML = `
+                    <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border-radius: 8px;">
+                        <h3>Error: Vue Not Loaded</h3>
+                        <p>Please check the console for more details.</p>
+                    </div>
+                `;
                 return;
             }
+            
             if (typeof VueWidget === 'undefined') {
                 console.error('VueWidget is not loaded');
+                document.getElementById('widget-container').innerHTML = `
+                    <div style="padding: 20px; color: #721c24; background-color: #f8d7da; border-radius: 8px;">
+                        <h3>Error: Widget Script Not Loaded</h3>
+                        <p>Please check the console for more details.</p>
+                    </div>
+                `;
                 return;
             }
 
             try {
-                console.log('Initializing widget...');
+                console.log('Creating widget instance...');
                 const widget = new VueWidget({
                     target: '#widget-container',
                     config: {
@@ -71,6 +90,7 @@
                     isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
                 });
 
+                console.log('Widget instance created, mounting...');
                 widget.mount();
                 console.log('Widget mounted successfully');
             } catch (error) {
@@ -87,8 +107,10 @@
 
         // Initialize when the page loads
         if (document.readyState === 'loading') {
+            console.log('Document still loading, adding DOMContentLoaded listener');
             document.addEventListener('DOMContentLoaded', initializeWidget);
         } else {
+            console.log('Document already loaded, initializing immediately');
             initializeWidget();
         }
     </script>
