@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue Widget Development</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .widget-container {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Vue Widget Development</h1>
+    
+    <div class="widget-container">
+      <h2>Default Widget</h2>
+      <div id="vue-widget"></div>
+    </div>
+
+    <div class="widget-container">
+      <h2>Customized Widget</h2>
+      <div id="custom-widget"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import VueWidget from '../src/widget.js'
+
+    // Initialize default widget
+    const defaultWidget = new VueWidget({
+      target: '#vue-widget'
+    })
+    defaultWidget.mount()
+
+    // Initialize customized widget
+    const customWidget = new VueWidget({
+      target: '#custom-widget',
+      config: {
+        logo: '/custom-logo.png',
+        colors: {
+          primary: '#FF5733',
+          secondary: '#33FF57',
+          background: '#F5F5F5',
+          text: '#333333',
+          accent: '#3357FF'
+        },
+        fonts: {
+          primary: 'Helvetica, Arial, sans-serif',
+          sizes: {
+            heading: '28px',
+            subheading: '20px',
+            body: '16px'
+          }
+        }
+      },
+      headerText: 'Custom HR',
+      isDarkMode: false
+    })
+    customWidget.mount()
+  </script>
+</body>
+</html> 
