@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Guidance Widget</title>
-    <!-- Load Vue first -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Load Vue production build -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <!-- Load widget styles -->
-    <link rel="stylesheet" href="dist/style.css">
+    <link rel="stylesheet" href="./dist/style.css">
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Load widget script -->
-    <script src="dist/vue-widget.umd.js"></script>
+    <script src="./dist/vue-widget.umd.js"></script>
     <script>
         // Debug logging
         console.log('Script started');
@@ -77,7 +77,7 @@
                 const widget = new VueWidget({
                     target: '#widget-container',
                     config: {
-                        logo: 'images/logo.svg',
+                        logo: './images/logo.svg',
                         colors: {
                             primary: '#470FF4',
                             secondary: '#89AAE6',
