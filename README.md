@@ -98,11 +98,84 @@ const config = {
    ```bash
    npm run build
    ```
+   This will generate the following files in the `public/dist` directory:
+   - `vue-widget.umd.js` - UMD bundle for direct browser use
+   - `vue-widget.es.js` - ES module bundle
+   - `style.css` - Compiled styles
 
-2. Preview the production build:
+## Deployment
+
+### GitHub Pages Deployment
+
+1. Ensure you have two branches:
+   - `main` - for source code
+   - `gh-pages` - for built files
+
+2. Build and deploy to GitHub Pages:
    ```bash
-   npm run preview
+   # Build the project
+   npm run build
+
+   # Switch to gh-pages branch
+   git checkout gh-pages
+
+   # Add all changes
+   git add .
+
+   # Commit changes
+   git commit -m "Update built files"
+
+   # Push to GitHub Pages
+   git push origin gh-pages
    ```
+
+3. Your widget will be available at:
+   `https://[your-username].github.io/vue-widget/`
+
+### Using the Widget in Other Projects
+
+1. Include the required files in your HTML:
+   ```html
+   <link rel="stylesheet" href="path/to/style.css">
+   <script src="path/to/vue-widget.umd.js"></script>
+   ```
+
+2. Initialize the widget:
+   ```html
+   <div id="widget-container"></div>
+   <script>
+     const widget = new VueWidget({
+       container: '#widget-container',
+       config: {
+         logo: '/images/logo.svg',
+         colors: {
+           primary: '#4CAF50',
+           secondary: '#2196F3'
+         }
+       },
+       headerText: 'HR Assistant',
+       isDarkMode: false
+     });
+     widget.mount();
+   </script>
+   ```
+
+## Troubleshooting
+
+### Common Issues
+
+1. Images not loading:
+   - Ensure image paths are relative (e.g., `./images/logo.svg`)
+   - Check that images are in the correct directory (`public/images/`)
+
+2. Widget not displaying:
+   - Verify that `widget.mount()` is called after initialization
+   - Check browser console for error messages
+   - Ensure all required files are loaded
+
+3. Styling issues:
+   - Confirm that `style.css` is properly loaded
+   - Check that the container element exists in the DOM
 
 ## Contributing
 
@@ -114,4 +187,4 @@ const config = {
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
