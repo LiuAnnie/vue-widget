@@ -242,12 +242,14 @@ export default {
         id: question.id,
         type: question.type,
         options: question.options,
+        min: question.min,
+        max: question.max,
+        placeholder: question.placeholder,
         isEditing: false
       }))
       this.currentQuestions = []
       
       try {
-        // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1500))
         this.solution = await mockDataService.getSolution(this.answers)
         this.showSolution = true
@@ -268,13 +270,27 @@ export default {
       this.answers[this.answeredQuestions[index].id] = this.answeredQuestions[index].answer
     },
     async saveAnswer(answer) {
+      // For numerical questions, validate the input before saving
+      if (answer.type === 'numerical') {
+        const numValue = Number(this.answers[answer.id])
+        if (
+          isNaN(numValue) || 
+          (answer.min !== undefined && numValue < answer.min) || 
+          (answer.max !== undefined && numValue > answer.max)
+        ) {
+          // Reset to previous valid value
+          this.answers[answer.id] = answer.answer
+          answer.isEditing = false
+          return
+        }
+      }
+
       answer.isEditing = false
       // Update the answer in the answeredQuestions array
       answer.answer = this.answers[answer.id]
       this.isLoading = true
       
       try {
-        // Simulate API call delay
         await new Promise(resolve => setTimeout(resolve, 1500))
         this.solution = await mockDataService.getSolution(this.answers)
       } catch (error) {

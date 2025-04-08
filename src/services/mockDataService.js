@@ -32,15 +32,15 @@ export const mockDataService = {
       {
         id: 3,
         type: 'text-box',
-        text: 'Your Company Email Address.',
+        text: 'Your Company Email Address',
         placeholder: 'you@company.com',
         rows: 4
       },
       {
         id: 4,
         type: 'numerical',
-        text: 'Your Employee ID.',
-        min: 1,
+        text: 'Your Employee ID',
+        min: 10000000,
         max: 99999999,
         placeholder: '12345678'
       }

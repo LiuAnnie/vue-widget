@@ -2,17 +2,19 @@
   <div class="numerical-question">
     <div class="input-container">
       <input
-        type="number"
-        v-model="localValue"
-        :min="question.min"
-        :max="question.max"
-        :placeholder="question.placeholder || 'Enter a number'"
+        type="text"
+        v-model="inputValue"
+        @input="handleInput"
+        :placeholder="question.placeholder || `Enter a number (${question.min}-${question.max})`"
         class="number-input"
-        :class="{ 'dark-mode': isDarkMode }"
+        :class="{ 'dark-mode': isDarkMode, 'has-error': showError }"
       />
       <div class="range-info" v-if="question.min !== undefined || question.max !== undefined">
         <span v-if="question.min !== undefined">Min: {{ question.min }}</span>
         <span v-if="question.max !== undefined">Max: {{ question.max }}</span>
+      </div>
+      <div class="error-message" v-if="showError">
+        {{ errorMessage }}
       </div>
     </div>
   </div>
@@ -35,15 +37,61 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      inputValue: this.modelValue?.toString() ?? ''
+    }
+  },
+  watch: {
+    modelValue(newVal) {
+      this.inputValue = newVal?.toString() ?? ''
+    }
+  },
   computed: {
-    localValue: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        // Convert to number if possible, otherwise keep as string
-        const numValue = value === '' ? null : Number(value)
-        this.$emit('update:modelValue', numValue)
+    showError() {
+      const value = Number(this.inputValue)
+      if (this.inputValue === '' || isNaN(value)) return false
+
+      const min = this.question.min
+      const max = this.question.max
+      if (min !== undefined && value < min) return true
+      if (max !== undefined && value > max) return true
+
+      return false
+    },
+    errorMessage() {
+      const value = Number(this.inputValue)
+      const min = this.question.min
+      const max = this.question.max
+      
+      if (min !== undefined && value < min) {
+        return `Value must be at least ${min}.`
+      }
+      if (max !== undefined && value > max) {
+        return `Value must be at most ${max}.`
+      }
+      return `Value must be between ${min} and ${max}.`
+    }
+  },
+  methods: {
+    handleInput(event) {
+      const raw = event.target.value
+      // Only allow digits
+      const digitsOnly = raw.replace(/\D/g, '').slice(0, 8)
+      this.inputValue = digitsOnly
+
+      const numericValue = Number(digitsOnly)
+
+      // Only emit valid numbers within range
+      if (
+        digitsOnly !== '' &&
+        !isNaN(numericValue) &&
+        (this.question.min === undefined || numericValue >= this.question.min) &&
+        (this.question.max === undefined || numericValue <= this.question.max)
+      ) {
+        this.$emit('update:modelValue', numericValue)
+      } else {
+        this.$emit('update:modelValue', null)
       }
     }
   }
@@ -69,14 +117,20 @@ export default {
   font-family: var(--font-family, Arial, sans-serif);
   font-size: var(--body-size, 16px);
   color: var(--text-color, #2E3532);
-  transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
   background-color: white;
+  transition: border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .number-input.dark-mode {
   background-color: #333;
   color: #f5f5f5;
   border-color: #89AAE6;
+}
+
+.number-input.has-error {
+  border-color: #ff3333;
+  border-width: 2px;
+  box-shadow: 0 0 5px rgba(255, 51, 51, 0.3);
 }
 
 .number-input:focus {
@@ -107,8 +161,11 @@ export default {
   opacity: 0.8;
 }
 
-.dark-mode + .range-info {
-  color: #f5f5f5;
+.error-message {
+  color: #ff3333;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
 }
 
 @media (max-width: 480px) {
@@ -116,4 +173,4 @@ export default {
     padding: 10px;
   }
 }
-</style> 
+</style>
