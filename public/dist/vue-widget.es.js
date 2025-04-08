@@ -173,7 +173,7 @@ const Y = /* @__PURE__ */ f(z, [["render", j], ["__scopeId", "data-v-cba559f8"]]
     },
     errorMessage() {
       const e = Number(this.inputValue), t = this.question.min, s = this.question.max;
-      return t !== void 0 && e < t ? `Value must be at least ${t}.` : s !== void 0 && e > s ? `Value must be at most ${s}.` : `Value must be between ${t} and ${s}.`;
+      return t !== void 0 && e < t ? "Employee ID must be 8 digits." : s !== void 0 && e > s ? `Value must be at most ${s}.` : `Value must be between ${t} and ${s}.`;
     }
   },
   methods: {
@@ -211,7 +211,7 @@ function se(e, t, s, d, n, r) {
     ])
   ]);
 }
-const ne = /* @__PURE__ */ f(G, [["render", se], ["__scopeId", "data-v-6354d584"]]), p = {
+const ne = /* @__PURE__ */ f(G, [["render", se], ["__scopeId", "data-v-f83cb8fb"]]), p = {
   async getQuestions(e) {
     return await new Promise((t) => setTimeout(t, 500)), [
       {

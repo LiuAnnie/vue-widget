@@ -65,7 +65,9 @@ export default {
       const max = this.question.max
       
       if (min !== undefined && value < min) {
-        return `Value must be at least ${min}.`
+        // return `Value must be at least ${min}.`
+        // The following line is for the mock data service.
+        return 'Employee ID must be 8 digits.'
       }
       if (max !== undefined && value > max) {
         return `Value must be at most ${max}.`
