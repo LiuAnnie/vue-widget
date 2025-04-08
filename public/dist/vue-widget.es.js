@@ -233,9 +233,9 @@ const ne = /* @__PURE__ */ f(G, [["render", se], ["__scopeId", "data-v-f83cb8fb"
         type: "image-enum",
         text: "Which communication style would you prefer for this matter?",
         options: [
-          { value: "AI summary", label: "AI Summary", imageUrl: "./images/textguide.svg" },
-          { value: "link to company documentation", label: "Company Documentation", imageUrl: "./images/docs.svg" },
-          { value: "video", label: "Video Walkthrough", imageUrl: "./images/video.svg" }
+          { value: "AI summary", label: "AI Summary", imageUrl: "public/images/textguide.svg" },
+          { value: "link to company documentation", label: "Company Documentation", imageUrl: "public/images/docs.svg" },
+          { value: "video", label: "Video Walkthrough", imageUrl: "public/images/video.svg" }
         ]
       },
       {
