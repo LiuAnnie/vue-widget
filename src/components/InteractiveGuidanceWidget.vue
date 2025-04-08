@@ -50,7 +50,7 @@
       <!-- Solution Section -->
       <div v-if="solution && showSolution" class="solution-section">
         <h3>Based on your request:</h3>
-        <p>{{ solution }}</p>
+        <p v-html="solution"></p>
         
         <!-- Your Answers Section -->
         <div class="answered-questions">

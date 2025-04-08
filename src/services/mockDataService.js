@@ -32,8 +32,9 @@ export const mockDataService = {
       {
         id: 3,
         type: 'text-box',
-        text: 'Your Company Email Address',
-        placeholder: 'you@company.com',
+        text: 'Additional Information',
+        description: 'Please provide any additional information you would like to include in your request.',
+        placeholder: 'If inapplicable, type "N/A".',
         rows: 4
       },
       {
@@ -67,11 +68,14 @@ export const mockDataService = {
     // Determine the correct article based on the guidance format
     const article = guidanceFormat.toLowerCase().startsWith('ai') ? 'an' : 'a'
 
-    return `We've received your request on information about ${questionType}. ` +
-      `We'll send ${article} ${guidanceFormat} to your provided email address. ` +
-      `Typical response time is 2 minutes, but more complicated requests can take up to 2 hours. ` +
-      `Thank you for your patience.\n\n` +
-      `Request successfully processed for employee ${employeeId}.`
+    return `
+    We've received your request on information about ${questionType}.
+    We'll send ${article} ${guidanceFormat} to your email address.
+    Typical response time is 2 minutes, but more complicated requests can take up to 2 hours.
+    Thank you for your patience.<br><br>
+    Request successfully processed for employee ${employeeId}.
+    `;
+    
   },
 
   async submitFeedback(feedback) {

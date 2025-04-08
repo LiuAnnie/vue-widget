@@ -1,12 +1,17 @@
 <template>
   <div class="text-box-question">
-    <textarea
-      v-model="localValue"
-      :placeholder="question.placeholder || 'Enter your answer...'"
-      :rows="question.rows || 4"
-      class="text-input"
-      :class="{ 'dark-mode': isDarkMode }"
-    ></textarea>
+    <div class="input-container">
+      <div class="description" v-if="question.description">
+        {{ question.description }}
+      </div>
+      <textarea
+        v-model="localValue"
+        :placeholder="question.placeholder || 'Enter your answer...'"
+        :rows="question.rows || 4"
+        class="text-input"
+        :class="{ 'dark-mode': isDarkMode }"
+      ></textarea>
+    </div>
   </div>
 </template>
 
@@ -43,6 +48,20 @@ export default {
 <style scoped>
 .text-box-question {
   margin-top: 10px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.description {
+  font-size: 14px;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 8px;
+  font-style: italic;
 }
 
 .text-input {
