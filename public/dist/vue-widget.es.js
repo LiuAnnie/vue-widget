@@ -55,7 +55,7 @@ function P(e, t, s, d, n, r) {
     ])
   ]);
 }
-const T = /* @__PURE__ */ h(D, [["render", P], ["__scopeId", "data-v-a6e14a8a"]]), A = {
+const T = /* @__PURE__ */ h(D, [["render", P], ["__scopeId", "data-v-7547c3d1"]]), A = {
   name: "ImageEnumQuestion",
   props: {
     question: {
@@ -98,7 +98,7 @@ function W(e, t, s, d, n, r) {
     ])
   ]);
 }
-const z = /* @__PURE__ */ h(A, [["render", W], ["__scopeId", "data-v-72dc1159"]]), O = {
+const z = /* @__PURE__ */ h(A, [["render", W], ["__scopeId", "data-v-82eaa79e"]]), O = {
   name: "TextBoxQuestion",
   props: {
     question: {

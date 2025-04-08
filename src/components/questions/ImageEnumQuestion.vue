@@ -60,7 +60,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  border: 2px solid var(--secondary-color);
+  border: 1px solid var(--secondary-color);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -110,7 +110,7 @@ export default {
 .dark-mode .option-card.selected {
   border-color: var(--primary-color);
   border-width: 2px;
-  box-shadow: 0 4px 12px rgba(71, 15, 244, 0.3);
+  box-shadow: 0 0 12px rgba(199, 180, 255, 0.789);
   transform: translateY(-2px);
 }
 
