@@ -522,7 +522,7 @@ function De(e, t, s, d, n, r) {
         t[9] || (t[9] = i("h3", null, "How can I help you?", -1)),
         b(i("textarea", {
           "onUpdate:modelValue": t[0] || (t[0] = (o) => n.userProblem = o),
-          placeholder: "Describe your HR question or request...",
+          placeholder: "In 1-2 sentences, describe your HR request...",
           onInput: t[1] || (t[1] = (...o) => r.handleUserProblemInput && r.handleUserProblemInput(...o))
         }, null, 544), [
           [_, n.userProblem]
@@ -619,7 +619,7 @@ function De(e, t, s, d, n, r) {
     ])
   ], 2);
 }
-const Ee = /* @__PURE__ */ h(re, [["render", De], ["__scopeId", "data-v-3c25dbda"]]);
+const Ee = /* @__PURE__ */ h(re, [["render", De], ["__scopeId", "data-v-95d3028d"]]);
 class Me {
   constructor(t = {}) {
     this.options = {

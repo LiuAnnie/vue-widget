@@ -11,7 +11,7 @@
         <h3>How can I help you?</h3>
         <textarea
           v-model="userProblem"
-          placeholder="Describe your HR question or request..."
+          placeholder="In 1-2 sentences, describe your HR request..."
           @input="handleUserProblemInput"
         ></textarea>
         <button @click="startQuestions" :disabled="!userProblem.trim()">
