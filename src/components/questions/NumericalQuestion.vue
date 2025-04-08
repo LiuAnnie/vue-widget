@@ -1,6 +1,9 @@
 <template>
   <div class="numerical-question">
     <div class="input-container">
+      <div class="description" v-if="question.description">
+        {{ question.description }}
+      </div>
       <input
         type="text"
         v-model="inputValue"
@@ -9,13 +12,13 @@
         class="number-input"
         :class="{ 'dark-mode': isDarkMode, 'has-error': showError }"
       />
-      <div class="range-info" v-if="question.min !== undefined || question.max !== undefined">
+      <!-- <div class="range-info" v-if="question.min !== undefined || question.max !== undefined">
         <span v-if="question.min !== undefined">Min: {{ question.min }}</span>
         <span v-if="question.max !== undefined">Max: {{ question.max }}</span>
-      </div>
-      <div class="error-message" v-if="showError">
+      </div> -->
+      <!-- <div class="error-message" v-if="showError">
         {{ errorMessage }}
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -67,7 +70,7 @@ export default {
       if (min !== undefined && value < min) {
         // return `Value must be at least ${min}.`
         // The following line is for the mock data service.
-        return 'Employee ID must be 8 digits.'
+        return 'An employee ID is an 8-digit number that begins with a non-zero digit.'
       }
       if (max !== undefined && value > max) {
         return `Value must be at most ${max}.`
@@ -168,6 +171,21 @@ export default {
   font-size: 14px;
   font-weight: 500;
   margin-top: 4px;
+}
+
+.guiding-message {
+  color: #006eff;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.description {
+  font-size: 14px;
+  color: var(--text-color);
+  opacity: 0.8;
+  margin-bottom: 8px;
+  font-style: italic;
 }
 
 @media (max-width: 480px) {

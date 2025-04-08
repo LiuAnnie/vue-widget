@@ -70,14 +70,15 @@
                   options: answer.options,
                   placeholder: answer.placeholder,
                   min: answer.min,
-                  max: answer.max
+                  max: answer.max,
+                  description: answer.description
                 }"
                 v-model="answers[answer.id]"
                 :is-dark-mode="isDarkMode"
               />
               <div class="edit-buttons">
-                <button @click="cancelEdit(answer)">Cancel</button>
-                <button @click="saveAnswer(answer)">Save</button>
+                <button class="cancel-button" @click="cancelEdit(answer)">Cancel</button>
+                <button class="save-button primary-button" @click="saveAnswer(answer)">Save</button>
               </div>
             </div>
             <div v-else class="answer-display">{{ answer.answer }}</div>
@@ -244,6 +245,7 @@ export default {
         options: question.options,
         min: question.min,
         max: question.max,
+        description: question.description,
         placeholder: question.placeholder,
         isEditing: false
       }))

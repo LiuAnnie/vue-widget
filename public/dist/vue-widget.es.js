@@ -1,10 +1,10 @@
-import { createElementBlock as a, openBlock as u, createElementVNode as i, Fragment as b, renderList as k, normalizeClass as m, withDirectives as y, vModelRadio as Q, toDisplayString as c, vModelText as x, createCommentVNode as h, resolveComponent as q, createBlock as v, resolveDynamicComponent as w, createVNode as V, createApp as E } from "vue";
-const f = (e, t) => {
+import { createElementBlock as l, openBlock as u, createElementVNode as i, Fragment as y, renderList as k, normalizeClass as m, withDirectives as f, vModelRadio as Q, toDisplayString as c, vModelText as x, createCommentVNode as b, resolveComponent as q, createBlock as v, resolveDynamicComponent as w, createVNode as V, createApp as I } from "vue";
+const h = (e, t) => {
   const s = e.__vccOpts || e;
   for (const [d, n] of t)
     s[d] = n;
   return s;
-}, I = {
+}, D = {
   name: "TextEnumQuestion",
   props: {
     question: {
@@ -30,32 +30,32 @@ const f = (e, t) => {
       }
     }
   }
-}, D = { class: "text-enum-question" }, M = { class: "options-container" }, S = ["name", "value"], C = { class: "option-text" };
+}, E = { class: "text-enum-question" }, M = { class: "options-container" }, S = ["name", "value"], C = { class: "option-text" };
 function P(e, t, s, d, n, r) {
-  return u(), a("div", D, [
+  return u(), l("div", E, [
     i("div", M, [
-      (u(!0), a(b, null, k(s.question.options, (l) => (u(), a("label", {
-        key: l,
+      (u(!0), l(y, null, k(s.question.options, (a) => (u(), l("label", {
+        key: a,
         class: m(["option-label", {
-          selected: s.modelValue === l,
+          selected: s.modelValue === a,
           "dark-mode": s.isDarkMode
         }])
       }, [
-        y(i("input", {
+        f(i("input", {
           type: "radio",
           name: "question-" + s.question.id,
-          value: l,
+          value: a,
           "onUpdate:modelValue": t[0] || (t[0] = (o) => r.localValue = o),
           class: "option-input"
         }, null, 8, S), [
           [Q, r.localValue]
         ]),
-        i("span", C, c(l), 1)
+        i("span", C, c(a), 1)
       ], 2))), 128))
     ])
   ]);
 }
-const T = /* @__PURE__ */ f(I, [["render", P], ["__scopeId", "data-v-a6e14a8a"]]), A = {
+const T = /* @__PURE__ */ h(D, [["render", P], ["__scopeId", "data-v-a6e14a8a"]]), A = {
   name: "ImageEnumQuestion",
   props: {
     question: {
@@ -78,27 +78,27 @@ const T = /* @__PURE__ */ f(I, [["render", P], ["__scopeId", "data-v-a6e14a8a"]]
   }
 }, N = { class: "image-enum-question" }, B = { class: "options-grid" }, F = ["onClick"], L = ["src", "alt"], U = { class: "option-label" };
 function W(e, t, s, d, n, r) {
-  return u(), a("div", N, [
+  return u(), l("div", N, [
     i("div", B, [
-      (u(!0), a(b, null, k(s.question.options, (l) => (u(), a("div", {
-        key: l.value,
+      (u(!0), l(y, null, k(s.question.options, (a) => (u(), l("div", {
+        key: a.value,
         class: m(["option-card", {
-          selected: s.modelValue === l.value,
+          selected: s.modelValue === a.value,
           "dark-mode": s.isDarkMode
         }]),
-        onClick: (o) => r.selectOption(l.value)
+        onClick: (o) => r.selectOption(a.value)
       }, [
         i("img", {
-          src: l.imageUrl,
-          alt: l.label,
+          src: a.imageUrl,
+          alt: a.label,
           class: "option-image"
         }, null, 8, L),
-        i("div", U, c(l.label), 1)
+        i("div", U, c(a.label), 1)
       ], 10, F))), 128))
     ])
   ]);
 }
-const O = /* @__PURE__ */ f(A, [["render", W], ["__scopeId", "data-v-72dc1159"]]), z = {
+const z = /* @__PURE__ */ h(A, [["render", W], ["__scopeId", "data-v-72dc1159"]]), O = {
   name: "TextBoxQuestion",
   props: {
     question: {
@@ -126,9 +126,9 @@ const O = /* @__PURE__ */ f(A, [["render", W], ["__scopeId", "data-v-72dc1159"]]
   }
 }, H = { class: "text-box-question" }, R = ["placeholder", "rows"];
 function j(e, t, s, d, n, r) {
-  return u(), a("div", H, [
-    y(i("textarea", {
-      "onUpdate:modelValue": t[0] || (t[0] = (l) => r.localValue = l),
+  return u(), l("div", H, [
+    f(i("textarea", {
+      "onUpdate:modelValue": t[0] || (t[0] = (a) => r.localValue = a),
       placeholder: s.question.placeholder || "Enter your answer...",
       rows: s.question.rows || 4,
       class: m(["text-input", { "dark-mode": s.isDarkMode }])
@@ -137,7 +137,7 @@ function j(e, t, s, d, n, r) {
     ])
   ]);
 }
-const Y = /* @__PURE__ */ f(z, [["render", j], ["__scopeId", "data-v-cba559f8"]]), G = {
+const Y = /* @__PURE__ */ h(O, [["render", j], ["__scopeId", "data-v-cba559f8"]]), G = {
   name: "NumericalQuestion",
   props: {
     question: {
@@ -173,7 +173,7 @@ const Y = /* @__PURE__ */ f(z, [["render", j], ["__scopeId", "data-v-cba559f8"]]
     },
     errorMessage() {
       const e = Number(this.inputValue), t = this.question.min, s = this.question.max;
-      return t !== void 0 && e < t ? "Employee ID must be 8 digits." : s !== void 0 && e > s ? `Value must be at most ${s}.` : `Value must be between ${t} and ${s}.`;
+      return t !== void 0 && e < t ? "An employee ID is an 8-digit number that begins with a non-zero digit." : s !== void 0 && e > s ? `Value must be at most ${s}.` : `Value must be between ${t} and ${s}.`;
     }
   },
   methods: {
@@ -184,34 +184,27 @@ const Y = /* @__PURE__ */ f(z, [["render", j], ["__scopeId", "data-v-cba559f8"]]
       s !== "" && !isNaN(d) && (this.question.min === void 0 || d >= this.question.min) && (this.question.max === void 0 || d <= this.question.max) ? this.$emit("update:modelValue", d) : this.$emit("update:modelValue", null);
     }
   }
-}, J = { class: "numerical-question" }, K = { class: "input-container" }, X = ["placeholder"], Z = {
+}, J = { class: "numerical-question" }, K = { class: "input-container" }, X = {
   key: 0,
-  class: "range-info"
-}, $ = { key: 0 }, ee = { key: 1 }, te = {
-  key: 1,
-  class: "error-message"
-};
-function se(e, t, s, d, n, r) {
-  return u(), a("div", J, [
+  class: "description"
+}, Z = ["placeholder"];
+function $(e, t, s, d, n, r) {
+  return u(), l("div", J, [
     i("div", K, [
-      y(i("input", {
+      s.question.description ? (u(), l("div", X, c(s.question.description), 1)) : b("", !0),
+      f(i("input", {
         type: "text",
-        "onUpdate:modelValue": t[0] || (t[0] = (l) => n.inputValue = l),
-        onInput: t[1] || (t[1] = (...l) => r.handleInput && r.handleInput(...l)),
+        "onUpdate:modelValue": t[0] || (t[0] = (a) => n.inputValue = a),
+        onInput: t[1] || (t[1] = (...a) => r.handleInput && r.handleInput(...a)),
         placeholder: s.question.placeholder || `Enter a number (${s.question.min}-${s.question.max})`,
         class: m(["number-input", { "dark-mode": s.isDarkMode, "has-error": r.showError }])
-      }, null, 42, X), [
+      }, null, 42, Z), [
         [x, n.inputValue]
-      ]),
-      s.question.min !== void 0 || s.question.max !== void 0 ? (u(), a("div", Z, [
-        s.question.min !== void 0 ? (u(), a("span", $, "Min: " + c(s.question.min), 1)) : h("", !0),
-        s.question.max !== void 0 ? (u(), a("span", ee, "Max: " + c(s.question.max), 1)) : h("", !0)
-      ])) : h("", !0),
-      r.showError ? (u(), a("div", te, c(r.errorMessage), 1)) : h("", !0)
+      ])
     ])
   ]);
 }
-const ne = /* @__PURE__ */ f(G, [["render", se], ["__scopeId", "data-v-f83cb8fb"]]), p = {
+const ee = /* @__PURE__ */ h(G, [["render", $], ["__scopeId", "data-v-74235f52"]]), g = {
   async getQuestions(e) {
     return await new Promise((t) => setTimeout(t, 500)), [
       {
@@ -249,6 +242,7 @@ const ne = /* @__PURE__ */ f(G, [["render", se], ["__scopeId", "data-v-f83cb8fb"
         id: 4,
         type: "numerical",
         text: "Your Employee ID",
+        description: "An employee ID is an 8-digit number that begins with a non-zero digit.",
         min: 1e7,
         max: 99999999,
         placeholder: "12345678"
@@ -269,7 +263,7 @@ Request successfully processed for employee ${d}.`;
   async submitFeedback(e) {
     return await new Promise((t) => setTimeout(t, 300)), console.log("Feedback submitted:", e), { success: !0 };
   }
-}, ie = {
+}, te = {
   name: "LoadingSpinner",
   props: {
     isDarkMode: {
@@ -278,22 +272,22 @@ Request successfully processed for employee ${d}.`;
     }
   }
 };
-function oe(e, t, s, d, n, r) {
-  return u(), a("div", {
+function se(e, t, s, d, n, r) {
+  return u(), l("div", {
     class: m(["loading-spinner", { "dark-mode": s.isDarkMode }])
   }, t[0] || (t[0] = [
     i("div", { class: "spinner" }, null, -1),
     i("div", { class: "loading-text" }, "Processing your request...", -1)
   ]), 2);
 }
-const re = /* @__PURE__ */ f(ie, [["render", oe], ["__scopeId", "data-v-e1d915a2"]]), ue = {
+const ne = /* @__PURE__ */ h(te, [["render", se], ["__scopeId", "data-v-e1d915a2"]]), ie = {
   name: "InteractiveGuidanceWidget",
   components: {
     TextEnumQuestion: T,
-    ImageEnumQuestion: O,
+    ImageEnumQuestion: z,
     TextBoxQuestion: Y,
-    NumericalQuestion: ne,
-    LoadingSpinner: re
+    NumericalQuestion: ee,
+    LoadingSpinner: ne
   },
   props: {
     config: {
@@ -376,7 +370,7 @@ const re = /* @__PURE__ */ f(ie, [["render", oe], ["__scopeId", "data-v-e1d915a2
     },
     async fetchQuestions() {
       try {
-        this.currentQuestions = await p.getQuestions(this.problemDescription);
+        this.currentQuestions = await g.getQuestions(this.problemDescription);
       } catch (e) {
         console.error("Error fetching questions:", e);
       }
@@ -398,11 +392,12 @@ const re = /* @__PURE__ */ f(ie, [["render", oe], ["__scopeId", "data-v-e1d915a2
         options: e.options,
         min: e.min,
         max: e.max,
+        description: e.description,
         placeholder: e.placeholder,
         isEditing: !1
       })), this.currentQuestions = [];
       try {
-        await new Promise((e) => setTimeout(e, 1500)), this.solution = await p.getSolution(this.answers), this.showSolution = !0;
+        await new Promise((e) => setTimeout(e, 1500)), this.solution = await g.getSolution(this.answers), this.showSolution = !0;
       } catch (e) {
         console.error("Error fetching solution:", e), this.solution = "Sorry, there was an error generating your solution. Please try again.", this.showSolution = !0;
       } finally {
@@ -422,7 +417,7 @@ const re = /* @__PURE__ */ f(ie, [["render", oe], ["__scopeId", "data-v-e1d915a2
       }
       e.isEditing = !1, e.answer = this.answers[e.id], this.isLoading = !0;
       try {
-        await new Promise((t) => setTimeout(t, 1500)), this.solution = await p.getSolution(this.answers);
+        await new Promise((t) => setTimeout(t, 1500)), this.solution = await g.getSolution(this.answers);
       } catch (t) {
         console.error("Error fetching solution:", t), this.solution = "Sorry, there was an error generating your solution. Please try again.";
       } finally {
@@ -438,7 +433,7 @@ const re = /* @__PURE__ */ f(ie, [["render", oe], ["__scopeId", "data-v-e1d915a2
     async submitFeedback(e) {
       this.feedback = e;
       try {
-        await p.submitFeedback(e);
+        await g.submitFeedback(e);
       } catch (t) {
         console.error("Error submitting feedback:", t);
       }
@@ -479,42 +474,42 @@ const re = /* @__PURE__ */ f(ie, [["render", oe], ["__scopeId", "data-v-e1d915a2
       e < this.questions.length - 1 ? (this.currentQuestion = this.questions[e + 1], this.currentQuestionIndex = e + 1, this.selectedAnswer = null) : (this.currentQuestion = null, this.currentQuestionIndex = -1);
     }
   }
-}, ae = { class: "widget-header" }, le = ["src"], de = { class: "widget-content" }, ce = {
+}, oe = { class: "widget-header" }, re = ["src"], ue = { class: "widget-content" }, ae = {
   key: 0,
   class: "user-problem"
-}, me = ["disabled"], he = {
+}, le = ["disabled"], de = {
   key: 1,
   class: "questions-section"
-}, fe = { class: "question-container" }, ge = ["disabled"], pe = {
+}, ce = { class: "question-container" }, me = ["disabled"], he = {
   key: 2,
   class: "solution-container"
-}, ye = {
+}, pe = {
   key: 3,
   class: "solution-section"
-}, be = { class: "answered-questions" }, ke = { class: "question-header" }, xe = ["onClick"], _e = {
+}, ge = { class: "answered-questions" }, fe = { class: "question-header" }, be = ["onClick"], ye = {
   key: 0,
   class: "edit-answer"
-}, ve = { class: "edit-buttons" }, we = ["onClick"], Qe = ["onClick"], qe = {
+}, ke = { class: "edit-buttons" }, xe = ["onClick"], _e = ["onClick"], ve = {
   key: 1,
   class: "answer-display"
-}, Ve = { class: "feedback-section" }, Ee = { class: "feedback-buttons" };
-function Ie(e, t, s, d, n, r) {
-  const l = q("LoadingSpinner");
-  return u(), a("div", {
+}, we = { class: "feedback-section" }, Qe = { class: "feedback-buttons" };
+function qe(e, t, s, d, n, r) {
+  const a = q("LoadingSpinner");
+  return u(), l("div", {
     class: m(["guidance-widget", { "dark-mode": n.isDarkMode }])
   }, [
-    i("div", ae, [
+    i("div", oe, [
       i("h2", null, c(s.headerText), 1),
       i("img", {
         src: s.config.logo,
         alt: "Logo",
         class: "widget-logo"
-      }, null, 8, le)
+      }, null, 8, re)
     ]),
-    i("div", de, [
-      !n.currentQuestions.length && !n.answeredQuestions.length ? (u(), a("div", ce, [
+    i("div", ue, [
+      !n.currentQuestions.length && !n.answeredQuestions.length ? (u(), l("div", ae, [
         t[9] || (t[9] = i("h3", null, "How can I help you?", -1)),
-        y(i("textarea", {
+        f(i("textarea", {
           "onUpdate:modelValue": t[0] || (t[0] = (o) => n.userProblem = o),
           placeholder: "Describe your HR question or request...",
           onInput: t[1] || (t[1] = (...o) => r.handleUserProblemInput && r.handleUserProblemInput(...o))
@@ -524,13 +519,13 @@ function Ie(e, t, s, d, n, r) {
         i("button", {
           onClick: t[2] || (t[2] = (...o) => r.startQuestions && r.startQuestions(...o)),
           disabled: !n.userProblem.trim()
-        }, " Continue ", 8, me)
-      ])) : n.currentQuestions.length > 0 ? (u(), a("div", he, [
+        }, " Continue ", 8, le)
+      ])) : n.currentQuestions.length > 0 ? (u(), l("div", de, [
         i("button", {
           class: "back-button",
           onClick: t[3] || (t[3] = (...o) => r.goBack && r.goBack(...o))
         }, " ← "),
-        i("div", fe, [
+        i("div", ce, [
           i("h3", null, c(n.currentQuestions[n.currentQuestionIndex].text), 1),
           (u(), v(w(r.getQuestionComponent(n.currentQuestions[n.currentQuestionIndex].type)), {
             question: n.currentQuestions[n.currentQuestionIndex],
@@ -542,28 +537,28 @@ function Ie(e, t, s, d, n, r) {
             onClick: t[5] || (t[5] = (...o) => r.goToNextQuestion && r.goToNextQuestion(...o)),
             disabled: !n.answers[n.currentQuestions[n.currentQuestionIndex].id],
             class: "continue-button"
-          }, " Continue ", 8, ge)
+          }, " Continue ", 8, me)
         ])
-      ])) : n.isLoading ? (u(), a("div", pe, [
-        V(l, { "is-dark-mode": n.isDarkMode }, null, 8, ["is-dark-mode"])
-      ])) : h("", !0),
-      n.solution && n.showSolution ? (u(), a("div", ye, [
+      ])) : n.isLoading ? (u(), l("div", he, [
+        V(a, { "is-dark-mode": n.isDarkMode }, null, 8, ["is-dark-mode"])
+      ])) : b("", !0),
+      n.solution && n.showSolution ? (u(), l("div", pe, [
         t[12] || (t[12] = i("h3", null, "Based on your request:", -1)),
         i("p", null, c(n.solution), 1),
-        i("div", be, [
+        i("div", ge, [
           t[10] || (t[10] = i("h4", null, "Your Answers", -1)),
-          (u(!0), a(b, null, k(n.answeredQuestions, (o, _) => (u(), a("div", {
+          (u(!0), l(y, null, k(n.answeredQuestions, (o, _) => (u(), l("div", {
             key: _,
             class: "answered-question"
           }, [
-            i("div", ke, [
+            i("div", fe, [
               i("h5", null, c(o.question), 1),
               i("span", {
                 class: "edit-icon",
-                onClick: (g) => r.editAnswer(_)
-              }, "✎", 8, xe)
+                onClick: (p) => r.editAnswer(_)
+              }, "✎", 8, be)
             ]),
-            o.isEditing ? (u(), a("div", _e, [
+            o.isEditing ? (u(), l("div", ye, [
               (u(), v(w(r.getQuestionComponent(o.type)), {
                 question: {
                   id: o.id,
@@ -572,26 +567,29 @@ function Ie(e, t, s, d, n, r) {
                   options: o.options,
                   placeholder: o.placeholder,
                   min: o.min,
-                  max: o.max
+                  max: o.max,
+                  description: o.description
                 },
                 modelValue: n.answers[o.id],
-                "onUpdate:modelValue": (g) => n.answers[o.id] = g,
+                "onUpdate:modelValue": (p) => n.answers[o.id] = p,
                 "is-dark-mode": n.isDarkMode
               }, null, 8, ["question", "modelValue", "onUpdate:modelValue", "is-dark-mode"])),
-              i("div", ve, [
+              i("div", ke, [
                 i("button", {
-                  onClick: (g) => r.cancelEdit(o)
-                }, "Cancel", 8, we),
+                  class: "cancel-button",
+                  onClick: (p) => r.cancelEdit(o)
+                }, "Cancel", 8, xe),
                 i("button", {
-                  onClick: (g) => r.saveAnswer(o)
-                }, "Save", 8, Qe)
+                  class: "save-button primary-button",
+                  onClick: (p) => r.saveAnswer(o)
+                }, "Save", 8, _e)
               ])
-            ])) : (u(), a("div", qe, c(o.answer), 1))
+            ])) : (u(), l("div", ve, c(o.answer), 1))
           ]))), 128))
         ]),
-        i("div", Ve, [
+        i("div", we, [
           t[11] || (t[11] = i("h4", null, "Was this helpful?", -1)),
-          i("div", Ee, [
+          i("div", Qe, [
             i("button", {
               onClick: t[6] || (t[6] = (o) => r.submitFeedback(!0)),
               class: m(["feedback-button", { selected: n.feedback === !0 }])
@@ -606,12 +604,12 @@ function Ie(e, t, s, d, n, r) {
             class: "reset-button"
           }, "Done")
         ])
-      ])) : h("", !0)
+      ])) : b("", !0)
     ])
   ], 2);
 }
-const De = /* @__PURE__ */ f(ue, [["render", Ie], ["__scopeId", "data-v-0fee9578"]]);
-class Me {
+const Ve = /* @__PURE__ */ h(ie, [["render", qe], ["__scopeId", "data-v-6b0b5548"]]);
+class Ie {
   constructor(t = {}) {
     this.options = {
       target: t.target || "#vue-widget",
@@ -641,7 +639,7 @@ class Me {
     const t = document.querySelector(this.options.target);
     if (!t)
       throw new Error(`Target element "${this.options.target}" not found`);
-    const s = E(De, {
+    const s = I(Ve, {
       config: this.options.config,
       headerText: this.options.headerText,
       isDarkMode: this.options.isDarkMode
@@ -649,7 +647,7 @@ class Me {
     return s.mount(t), s;
   }
 }
-typeof window < "u" && (window.VueWidget = Me);
+typeof window < "u" && (window.VueWidget = Ie);
 export {
-  Me as default
+  Ie as default
 };

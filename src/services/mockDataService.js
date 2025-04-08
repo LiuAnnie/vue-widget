@@ -40,6 +40,7 @@ export const mockDataService = {
         id: 4,
         type: 'numerical',
         text: 'Your Employee ID',
+        description: 'An employee ID is an 8-digit number that begins with a non-zero digit.',
         min: 10000000,
         max: 99999999,
         placeholder: '12345678'
